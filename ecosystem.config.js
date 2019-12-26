@@ -1,18 +1,8 @@
-// pm2 start ecosystem.config.js --only admin
+// pm2 start ecosystem.config.js --only panel
 module.exports = {
   apps: [
     {
-      name: 'nuxt-dev',
-      script: 'npm',
-      args: 'run dev'
-    },
-    {
-      name: 'admin',
-      script: 'npm',
-      args: 'run start'
-    },
-    {
-      name: 'admin-next',
+      name: 'panel',
       script: 'npm',
       args: 'run start'
     }

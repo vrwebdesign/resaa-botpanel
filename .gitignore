@@ -66,7 +66,7 @@ typings/
 .nuxt
 
 # Nuxt generate
-#dist
+dist
 
 # vuepress build output
 .vuepress/dist
@@ -79,6 +79,7 @@ typings/
 
 # Service worker
 sw.*
-yarn.lock
+
+#yarn.lock
 
 .env

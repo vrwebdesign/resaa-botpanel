@@ -14,7 +14,7 @@ require('dotenv').config({
 })
 require('events').EventEmitter.defaultMaxListeners = 50
 export default {
-  mode: 'spa',
+  mode: 'universal',
   server: {
     port: process.env.PORT
   },
@@ -70,7 +70,7 @@ export default {
     'animate.css/animate.css',
     'vrwebdesign-nuxt/assets/style/main.scss'
   ],
-  plugins: ['~/plugins/vuetify.ts', '~/plugins/apexcharts.ts'],
+  plugins: ['~/plugins/vuetify.ts'],
   modules: [
     '@nuxtjs/style-resources',
     '@nuxtjs/recaptcha',

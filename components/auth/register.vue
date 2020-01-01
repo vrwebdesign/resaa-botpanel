@@ -84,8 +84,8 @@ export default Vue.extend({
       const valid = await this.$validator.validateAll()
       if (valid) {
         let loading = this.$loader.show(this.$refs.wrapper)
-        const token = await this.$recaptcha.execute('login')
-        this.new_user.recaptcha = token
+        // const token = await this.$recaptcha.execute('login')
+        // this.new_user.recaptcha = token
 
         try {
           await this.$service.auth_user.register(this.new_user)

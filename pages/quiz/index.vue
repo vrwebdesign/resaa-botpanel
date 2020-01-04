@@ -49,7 +49,7 @@
 
           <td>
             <span v-if="item.send_at">
-              {{ item.send_at | persianDate | persianDigit }}
+              {{ item.send_time | persianDate | persianDigit }}
             </span>
             <span v-else>
               -

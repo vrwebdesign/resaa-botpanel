@@ -35,25 +35,15 @@
               v-for="(answer, i) in item.answers"
               :key="i"
             >
-              <v-icon size="17" class="ml-2" v-if="answer.is_correct"
-                >la-check-square</v-icon
-              >
-              <span>
-                {{ answer.text }}
-              </span>
+              <v-icon size="17" class="ml-2" v-if="answer.is_correct">la-check-square</v-icon>
+              <span>{{ answer.text }}</span>
             </v-btn>
           </td>
-          <td>
-            {{ item.created_at | persianDate | persianDigit }}
-          </td>
+          <td>{{ item.created_at | persianDate | persianDigit }}</td>
 
           <td>
-            <span v-if="item.send_at">
-              {{ item.send_time | persianDate | persianDigit }}
-            </span>
-            <span v-else>
-              -
-            </span>
+            <span v-if="item.send_time">{{ item.send_time | persianDate | persianDigit }}</span>
+            <span v-else>-</span>
           </td>
         </template>
       </vr-data-grid>

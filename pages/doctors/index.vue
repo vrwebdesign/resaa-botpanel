@@ -4,27 +4,23 @@
   <section ref="wrapper">
     <v-card>
       <vr-data-grid
-        editUrl="/students/:id/info"
         :headers="headers"
         :title="title"
         :queryService="getService"
+        :service="$service.doctors"
         :filters="filters"
-        :withoutAction="true"
         :withAdd="false"
+        :withRecycle="true"
       >
         <template #items="{item}">
           <td>{{ item.first_name }}</td>
           <td>{{ item.last_name }}</td>
           <td>{{ item.subscriber_number }}</td>
           <td>
-            <span v-if="item.speciality">
-              {{ item.speciality.title }}
-            </span>
+            <span v-if="item.speciality">{{ item.speciality.title }}</span>
             <span v-else>-</span>
           </td>
-          <td>
-            {{ item.created_at | persianDate | persianDigit }}
-          </td>
+          <td>{{ item.created_at | persianDate | persianDigit }}</td>
         </template>
       </vr-data-grid>
     </v-card>

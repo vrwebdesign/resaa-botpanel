@@ -13,6 +13,11 @@
         :withRecycle="true"
       >
         <template #items="{item}">
+          <td>
+            <v-avatar size="75" color="grey" class="my-3">
+              <img :src="item.image" alt="alt" />
+            </v-avatar>
+          </td>
           <td>{{ item.first_name }}</td>
           <td>{{ item.last_name }}</td>
           <td>{{ item.subscriber_number }}</td>
@@ -35,6 +40,12 @@ export default {
         icon: 'la-user-md'
       },
       headers: [
+        {
+          text: 'عکس',
+          align: 'right',
+          sortable: false,
+          width: '10%'
+        },
         {
           text: 'نام',
           align: 'right',

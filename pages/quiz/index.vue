@@ -22,8 +22,26 @@
           </v-tooltip>
         </template>
         <template #items="{item}">
+          <td>{{ item.id }}</td>
+          <td>
+            <v-avatar size="75" color="grey" class="my-3">
+              <img v-if="item.image" :src="item.image.replace('original','thumb')" alt="alt" />
+            </v-avatar>
+          </td>
           <td>{{ item.title }}</td>
           <td>{{ item.question }}</td>
+          <td>
+            <span>
+              <v-icon color="green" class="ml-1">la-check</v-icon>
+              <span>پاسخ صحیح {{correct_answers(item) | persianDigit}}</span>
+            </span>
+            <br />
+            <br />
+            <span>
+              <v-icon color="red" class="ml-1">la-remove</v-icon>
+              <span>پاسخ غلط {{incorrect_answers(item) | persianDigit}}</span>
+            </span>
+          </td>
           <td>
             <v-btn
               :color="answer.is_correct ? 'secondary' : 'info'"
@@ -59,8 +77,11 @@ export default {
         icon: 'la-question'
       },
       headers: [
+        { text: 'آیدی', align: 'right', value: 'id', width: '20%' },
+        { text: 'عکس', align: 'right', sortable: false, width: '20%' },
         { text: 'عنوان', align: 'right', value: 'title', width: '20%' },
         { text: 'متن سوال', align: 'right', value: 'question', width: '20%' },
+        { text: 'پاسخ کاربران', align: 'right', sortable: false, width: '20%' },
         {
           text: 'پاسخ ها',
           align: 'right',
@@ -102,6 +123,12 @@ export default {
           this.$toast.error().showSimple('با مشکل مواجه شد')
         }
       } catch (error) {}
+    },
+    correct_answers(item) {
+      return item.quiz_answers.filter(item => item.is_correct == 1).length
+    },
+    incorrect_answers(item) {
+      return item.quiz_answers.filter(item => item.is_correct == 0).length
     }
   }
 }

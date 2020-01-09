@@ -38,14 +38,23 @@ export default Vue.extend({
             {
               label: 'عنوان',
               type: 'textField',
+              validation: { required: true },
               placeholder: 'نام را به فارسی وارد نمایید',
               model: 'title'
             },
             {
               label: ' متن سوال',
               type: 'textArea',
+              validation: { required: true },
               placeholder: 'متن سوال را به فارسی وارد نمایید',
               model: 'question'
+            },
+            {
+              label: ' عکس کوییز',
+              type: 'fileUpload',
+              validation: { required: true },
+              placeholder: 'عکس کوییز را به فارسی وارد نمایید',
+              model: 'image'
             },
             {
               component: quizAnswer,
@@ -72,6 +81,13 @@ export default Vue.extend({
               type: 'textArea',
               placeholder: 'متن سوال را به فارسی وارد نمایید',
               model: 'question'
+            },
+            {
+              label: ' عکس کوییز',
+              type: 'fileUpload',
+              validation: { required: true },
+              placeholder: 'عکس کوییز را به فارسی وارد نمایید',
+              model: 'image'
             },
             {
               component: quizAnswer,

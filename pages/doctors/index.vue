@@ -15,7 +15,7 @@
         <template #items="{item}">
           <td>
             <v-avatar size="75" color="grey" class="my-3">
-              <img :src="item.image" alt="alt" />
+              <img v-if="item.image" :src="item.image.replace('original','thumb')" alt="alt" />
             </v-avatar>
           </td>
           <td>{{ item.first_name }}</td>

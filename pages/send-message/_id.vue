@@ -36,22 +36,26 @@ export default Vue.extend({
           rows: [
             {
               label: 'عنوان',
-              readonly: this.item.is_send,
+              validation: { required: true },
+              disabled: this.item.is_send == 1 ? true : false,
               type: 'textField',
               placeholder: 'نام را به فارسی وارد نمایید',
               model: 'title'
             },
             {
               label: 'متن',
-              readonly: this.item.is_send,
+              validation: { required: true },
+              disabled: this.item.is_send == 1 ? true : false,
               type: 'textArea',
               placeholder: 'متن پیغام را به فارسی وارد نمایید',
               model: 'text'
             },
             {
               label: 'تاریخ ارسال',
-              readonly: this.item.is_send,
+              validation: { required: true },
+              disabled: this.item.is_send == 1 ? true : false,
               type: 'datePicker',
+              datePickerType: 'datetime',
               // appendIcon: 'event',
               format: 'jYYYY/jMM/jDD HH:mm',
               placeholder: 'تاریخ ارسال را وارد نمایید',
@@ -69,19 +73,23 @@ export default Vue.extend({
           rows: [
             {
               label: 'عنوان',
+              validation: { required: true },
               type: 'textField',
               placeholder: 'نام را به فارسی وارد نمایید',
               model: 'title'
             },
             {
               label: 'متن',
+              validation: { required: true },
               type: 'textArea',
               placeholder: 'متن پیغام را به فارسی وارد نمایید',
               model: 'text'
             },
             {
               label: 'تاریخ ارسال',
+              validation: { required: true },
               type: 'datePicker',
+              datePickerType: 'datetime',
               // appendIcon: 'event',
               format: 'jYYYY/jMM/jDD HH:mm',
               placeholder: 'تاریخ ارسال را وارد نمایید',

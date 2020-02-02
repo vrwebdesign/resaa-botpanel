@@ -1,0 +1,149 @@
+<style lang="scss"></style>
+
+<template>
+  <section ref="wrapper">
+    <v-card>
+      <vr-data-grid
+        :headers="headers"
+        :title="title"
+        :queryService="getService"
+        :service="$service.quiz"
+        :filters="filters"
+        :withRecycle="true"
+        :hideActionEdit="true"
+        :withAdd="false"
+      >
+        <template #items="{item}">
+          <td>{{ item.id }}</td>
+          <td>{{ item.user.phone }}</td>
+          <td>
+            <span v-if="item.doctor">
+              <a
+                target="_blank"
+                :href="`https://resaa.net/doctors/${item.doctor.specialty.description.toLowerCase().replace(/ /g,'-')}/${item.doctor.subscriberNumber}`"
+              >{{ item.doctor.firstName }} {{item.doctor.lastName}}</a>
+            </span>
+            <span v-else>-</span>
+          </td>
+          <td>{{item.price | currency | persianDigit}} تومان</td>
+
+          <td>
+            <vr-badge
+              :color="colors.testanswer_status[item.status]"
+            >{{ item.status | enum('testanswer_status') }}</vr-badge>
+          </td>
+          <td class="text-xs-center">
+            <span v-if="item.user_satisfaction">
+              <v-icon
+                size="16"
+                color="yellow darken-1"
+                v-for="rate in item.user_satisfaction"
+                :key="rate"
+              >la-star</v-icon>
+            </span>
+            <span v-else>-</span>
+          </td>
+          <td>
+            <vr-badge
+              type="dot"
+              :color="item.is_confirm?'green':'red'"
+            >{{ item.is_confirm?'تایید شده':'تایید نشده' }}</vr-badge>
+          </td>
+          <td>
+            <vr-badge
+              v-if="item.answer_type"
+              :color="item.answer_type == 'text'?'cyan':'pink'"
+            >{{ item.answer_type }}</vr-badge>
+            <span v-else>-</span>
+          </td>
+          <td>{{ item.created_at | persianDate | persianDigit }}</td>
+          <!-- <td>
+            <span>
+              <v-icon color="green" class="ml-1">la-check</v-icon>
+              <span>پاسخ صحیح {{correct_answers(item) | persianDigit}}</span>
+            </span>
+            <br />
+            <br />
+            <span>
+              <v-icon color="red" class="ml-1">la-remove</v-icon>
+              <span>پاسخ غلط {{incorrect_answers(item) | persianDigit}}</span>
+            </span>
+          </td>
+          <td>
+            <v-btn
+              :color="answer.is_correct ? 'secondary' : 'info'"
+              outline
+              depressed
+              small
+              :ripple="false"
+              class="ma-1"
+              v-for="(answer, i) in item.answers"
+              :key="i"
+            >
+              <v-icon size="17" class="ml-2" v-if="answer.is_correct">la-check-square</v-icon>
+              <span>{{ answer.text }}</span>
+            </v-btn>
+          </td>-->
+
+          <!-- <td>
+            <span v-if="item.send_time">{{ item.send_time | persianDate | persianDigit }}</span>
+            <span v-else>-</span>
+          </td>-->
+        </template>
+      </vr-data-grid>
+    </v-card>
+  </section>
+</template>
+<script>
+import colors from '@/colors'
+export default {
+  data() {
+    return {
+      title: {
+        text: 'لیست آزمایش ها',
+        icon: 'la-image'
+      },
+      headers: [
+        { text: 'آیدی', align: 'right', value: 'id', width: '10%' },
+        { text: 'کاربر', align: 'right', sortable: false, width: '20%' },
+        { text: 'پزشک', align: 'right', sortable: false, width: '20%' },
+        { text: 'قیمت', align: 'right', value: 'price', width: '20%' },
+        { text: 'وضعیت', align: 'right', value: 'question', width: '10%' },
+        {
+          text: 'رضایت کاربر',
+          align: 'center',
+          value: 'user_satisfaction',
+          width: '10%'
+        },
+        {
+          text: 'تایید مالی',
+          align: 'right',
+          value: 'is_confirm',
+          width: '10%'
+        },
+        {
+          text: 'نوع پاسخ',
+          align: 'right',
+          value: 'answer_type',
+          width: '10%'
+        },
+        {
+          text: 'تاریخ ایجاد',
+          align: 'right',
+          value: 'created_at',
+          width: '10%'
+        }
+      ],
+      filters: [],
+      service: this.$service.test_answer,
+      colors
+    }
+  },
+  mounted() {},
+  methods: {
+    getService(params) {
+      return this.$service.test_answer.$query(params)
+    }
+  }
+}
+</script>

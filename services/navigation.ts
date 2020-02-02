@@ -28,6 +28,11 @@ export default class NavigationService {
         icon: 'la-question',
         title: 'کوییز',
         to: '/quiz'
+      },
+      {
+        icon: 'la-image',
+        title: 'جواب آزمایش',
+        to: '/test-answer'
       }
     ]
   }

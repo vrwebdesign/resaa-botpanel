@@ -34,12 +34,15 @@
           </td>
           <td class="text-xs-center">
             <span v-if="item.user_satisfaction">
-              <v-icon
+              <vr-badge
+                :color="item.user_satisfaction==1?'red':'cyan'"
+              >{{ item.user_satisfaction==1?'ناراضی':'راضی' }}</vr-badge>
+              <!-- <v-icon
                 size="16"
                 color="yellow darken-1"
                 v-for="rate in item.user_satisfaction"
                 :key="rate"
-              >la-star</v-icon>
+              >la-star</v-icon>-->
             </span>
             <span v-else>-</span>
           </td>

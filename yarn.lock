@@ -1173,9 +1173,9 @@
   integrity sha512-FMdVn84tJJdV+xe+53sYiZS4R5yn1mAIxfj+DVoNiQjTYz1+OYmjwEZr1ev9nU0axXwda0QDbYl06QHanRVH3A==
 
 "@types/node@^12.0.2":
-  version "12.12.26"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.26.tgz#213e153babac0ed169d44a6d919501e68f59dea9"
-  integrity sha512-UmUm94/QZvU5xLcUlNR8hA7Ac+fGpO1EG/a8bcWVz0P0LqtxFmun9Y2bbtuckwGboWJIT70DoWq1r3hb56n3DA==
+  version "12.12.27"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.27.tgz#d7506f73160ad30fcebbcf5b8b7d2d976e649e42"
+  integrity sha512-odQFl/+B9idbdS0e8IxDl2ia/LP8KZLXhV3BUeI98TrZp0uoIzQPhGd+5EtzHmT0SMOIaPd7jfz6pOHLWTtl7A==
 
 "@types/optimize-css-assets-webpack-plugin@^5.0.0":
   version "5.0.0"
@@ -3765,9 +3765,9 @@ filepond-plugin-image-preview@^4.2.1:
   integrity sha512-Kx0Sg9+0ob9mbLyyLZWoo9htVzLiiZQzGgqse8NJp9YeQWPiRwkfloHyzw5eAgvtsM3geXJG6QKfi09u/aEVFg==
 
 filepond-plugin-image-preview@^4.5.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/filepond-plugin-image-preview/-/filepond-plugin-image-preview-4.6.0.tgz#fcd19ba9bb4074da11ca1efec4b00a685743233b"
-  integrity sha512-N3VhmK8y7Dwqk4HymUnbdi/vJ6kuahSiKsLe8S52HixH28IEicmeb2SqdFgejXZ1ynTusCcx4rmIWLMb5xk+WQ==
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-image-preview/-/filepond-plugin-image-preview-4.6.1.tgz#b328ef9da377023a6e359fbcef92d1721c399cf9"
+  integrity sha512-DYpPpbO3hg/Wrgkx6bOtl9+cF4UB0EpbtFr9PVwwwPZBdq9YCJlk8oq5M9vHVTZR1t6RGcg6Q2+qK8ukY+b5WA==
 
 filepond-plugin-image-resize@^2.0.4:
   version "2.0.4"
@@ -3780,9 +3780,9 @@ filepond@^4.4.9:
   integrity sha512-OqG35MnmvrGnq2KgHO0PS8uujzRqQL/bMlSy0StqRn6RRAM6wBM9gzQl22IvWLwMyw6g8aIZTZAhMaiTS1LZsA==
 
 filepond@^4.7.4:
-  version "4.9.5"
-  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.9.5.tgz#8f49c1ae0434d50595b33e9cb95e7ff55d51461c"
-  integrity sha512-ufTYgY1i1nzNriaacMNPwv8qc55xhCY6LzuKhybB53LHL8vn0P+T3ADOyrSHxDhfBp7abO6AO0vB9wohpiDD3A==
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.11.0.tgz#4c09971d711c2c8cc7f0e13624c8a542ed1afd15"
+  integrity sha512-BCzpBBnv8DgBUeEZPNQyltdD1YIXemm8VjQJ9+vKKhVkGMRQcAzGBFZBtWJSI4dbZF8KVQn+jIvRGujcm5T+EA==
 
 filesize@^3.6.1:
   version "3.6.1"
@@ -7624,9 +7624,9 @@ semver@^6.0.0, semver@^6.3.0:
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
 
 semver@^7.1.0:
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.1.2.tgz#847bae5bce68c5d08889824f02667199b70e3d87"
-  integrity sha512-BJs9T/H8sEVHbeigqzIEo57Iu/3DG6c4QoqTfbQB3BPA4zgzAomh/Fk9E7QtjWQ8mx2dgA9YCfSF4y9k9bHNpQ==
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.1.3.tgz#e4345ce73071c53f336445cfc19efb1c311df2a6"
+  integrity sha512-ekM0zfiA9SCBlsKa2X1hxyxiI4L3B6EbVJkkdgQXnSEEaHlGdvyodMruTiulSRWMMB4NeIuYNMC9rTKTz97GxA==
 
 semver@~5.3.0:
   version "5.3.0"
@@ -8837,9 +8837,9 @@ vm-browserify@^1.0.1:
   integrity sha512-iq+S7vZJE60yejDYM0ek6zg308+UZsdtPExWP9VZoCFCz1zkJoXFnAX7aZfd/ZwrkidzdUZL0C/ryW+JwAiIGw==
 
 vrwebdesign-nuxt@^1.x:
-  version "1.9.59"
-  resolved "https://registry.yarnpkg.com/vrwebdesign-nuxt/-/vrwebdesign-nuxt-1.9.59.tgz#6d8f83ddce54b443503de9e257341744f986095f"
-  integrity sha512-bndMs5sCvga2kK6A0fyX6seekm9WfpxikJnJek6tWHsJt9r4WMgu19xZTQKXuPKQefGrDV0vGrbn8Qz68Q1+fg==
+  version "1.9.63"
+  resolved "https://registry.yarnpkg.com/vrwebdesign-nuxt/-/vrwebdesign-nuxt-1.9.63.tgz#dfcd1c6b84c63acba9bf220a39e8bc04f99417cf"
+  integrity sha512-TTPATjnQRgJPbbp/UjstCQ5L7InltfffAwyDnaZA2mOPEHs75D3BuuVsV4dGwGH//fLgta0RiMsJsw4Kyx7FIw==
   dependencies:
     "@nuxt/config" "^2.7.1"
     "@nuxtjs/axios" "^5.3.6"

@@ -120,7 +120,7 @@ export default {
         { text: 'کاربر', align: 'right', sortable: false, width: '10%' },
         { text: 'پزشک', align: 'right', sortable: false, width: '10%' },
         { text: 'قیمت', align: 'right', value: 'price', width: '10%' },
-        { text: 'وضعیت', align: 'right', value: 'question', width: '10%' },
+        { text: 'وضعیت', align: 'right', value: 'status', width: '10%' },
         {
           text: 'رضایت کاربر',
           align: 'center',

@@ -52,14 +52,23 @@
               :color="item.is_confirm?'green':'red'"
             >{{ item.is_confirm?'تایید شده':'تایید نشده' }}</vr-badge>
           </td>
-          <td>
+          <td class="text-xs-center" dir="ltr">
+            <span
+              v-if="item.answer_at"
+            >{{ item.answer_at | persianDate('jYYYY-jMM-jDD HH:mm') | persianDigit }}</span>
+            <span v-else>-</span>
+          </td>
+          <td class="text-xs-center">
             <vr-badge
               v-if="item.answer_type"
               :color="item.answer_type == 'text'?'cyan':'pink'"
             >{{ item.answer_type }}</vr-badge>
             <span v-else>-</span>
           </td>
-          <td>{{ item.created_at | persianDate | persianDigit }}</td>
+          <td
+            class="text-xs-center"
+            dir="ltr"
+          >{{ item.created_at | persianDate('jYYYY-jMM-jDD HH:mm') | persianDigit }}</td>
           <!-- <td>
             <span>
               <v-icon color="green" class="ml-1">la-check</v-icon>
@@ -107,10 +116,10 @@ export default {
         icon: 'la-image'
       },
       headers: [
-        { text: 'آیدی', align: 'right', value: 'id', width: '10%' },
-        { text: 'کاربر', align: 'right', sortable: false, width: '20%' },
-        { text: 'پزشک', align: 'right', sortable: false, width: '20%' },
-        { text: 'قیمت', align: 'right', value: 'price', width: '20%' },
+        { text: 'آیدی', align: 'right', value: 'id', width: '5%' },
+        { text: 'کاربر', align: 'right', sortable: false, width: '10%' },
+        { text: 'پزشک', align: 'right', sortable: false, width: '10%' },
+        { text: 'قیمت', align: 'right', value: 'price', width: '10%' },
         { text: 'وضعیت', align: 'right', value: 'question', width: '10%' },
         {
           text: 'رضایت کاربر',
@@ -125,10 +134,16 @@ export default {
           width: '10%'
         },
         {
+          text: 'تاریخ پاسخ ',
+          align: 'right',
+          value: 'answer_at',
+          width: '5%'
+        },
+        {
           text: 'نوع پاسخ',
           align: 'right',
           value: 'answer_type',
-          width: '10%'
+          width: '5%'
         },
         {
           text: 'تاریخ ایجاد',

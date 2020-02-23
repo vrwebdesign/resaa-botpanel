@@ -15,7 +15,10 @@
       >
         <template #items="{item}">
           <td>{{ item.id }}</td>
-          <td>{{ item.user.phone }}</td>
+          <td>
+            <span v-if="item.user">{{ item.user.phone }}</span>
+            <span v-else></span>
+          </td>
           <td>
             <span v-if="item.doctor">
               <a
@@ -152,7 +155,12 @@ export default {
           width: '10%'
         }
       ],
-      filters: [],
+      filters: [
+        {
+          label: 'آیدی',
+          model: 'id:='
+        }
+      ],
       service: this.$service.test_answer,
       colors
     }

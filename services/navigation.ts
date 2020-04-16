@@ -33,6 +33,32 @@ export default class NavigationService {
         icon: 'la-image',
         title: 'جواب آزمایش',
         to: '/test-answer'
+      },
+      {
+        icon: 'la-globe',
+        title: 'لندینگ بیماران خارج',
+        child: [
+          {
+            icon: 'la-user-md',
+            title: 'پزشکان',
+            to: '/doctors'
+          },
+          {
+            icon: 'la-comments',
+            title: 'نظرات',
+            to: '/doctor-reviews'
+          },
+          {
+            icon: 'la-calendar-day',
+            title: 'رزرو ها',
+            to: '/reservation'
+          },
+          {
+            icon: 'la-user-injured',
+            title: 'بیمار ها',
+            to: '/patients'
+          }
+        ]
       }
     ]
   }

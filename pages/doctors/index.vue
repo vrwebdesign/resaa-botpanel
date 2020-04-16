@@ -9,7 +9,6 @@
         :queryService="getService"
         :service="$service.doctors"
         :filters="filters"
-        :withAdd="false"
         :withRecycle="true"
       >
         <template #items="{item}">

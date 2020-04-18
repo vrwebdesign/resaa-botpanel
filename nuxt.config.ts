@@ -16,8 +16,7 @@ require('events').EventEmitter.defaultMaxListeners = 50
 export default {
   mode: 'spa',
   server: {
-    port: process.env.PORT,
-    host: 'resaa.dev'
+    port: process.env.PORT
   },
   axios: {
     proxy: true, // Can be also an object with default options

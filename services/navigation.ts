@@ -10,22 +10,22 @@ export default class NavigationService {
         to: '/'
       },
       {
-        icon: 'la-question',
+        icon: 'la-question-circle',
         title: 'سوالات',
         to: '/questions'
       },
       {
-        icon: 'la-user-md',
+        icon: 'la-stethoscope',
         title: 'پزشکان',
         to: '/doctors'
       },
       {
-        icon: 'la-send',
+        icon: 'la-paper-plane',
         title: 'ارسال پیام',
         to: '/send-message'
       },
       {
-        icon: 'la-question',
+        icon: 'la-question-circle',
         title: 'کوییز',
         to: '/quiz'
       },
@@ -34,6 +34,7 @@ export default class NavigationService {
         title: 'جواب آزمایش',
         to: '/test-answer'
       },
+
       {
         icon: 'la-globe',
         title: 'لندینگ بیماران خارج',
@@ -59,6 +60,11 @@ export default class NavigationService {
             to: '/patients'
           }
         ]
+      },
+      {
+        icon: 'la-mobile',
+        title: 'اپلیکیشن رسا',
+        to: '/application'
       }
     ]
   }

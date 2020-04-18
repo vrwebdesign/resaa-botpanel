@@ -1,3 +1,4 @@
+import '../application'
 import '../auth_user'
 import '../doctor_reviews'
 import '../doctors'

@@ -23,7 +23,7 @@
             <span v-if="item.doctor">
               <a
                 target="_blank"
-                :href="`https://resaa.net/doctors/${item.doctor.specialty.description.toLowerCase().replace(/ /g,'-')}/${item.doctor.subscriberNumber}`"
+                :href="`https://resaa.net/doctors/${item.doctor.subscriberNumber}`"
               >{{ item.doctor.firstName }} {{item.doctor.lastName}}</a>
             </span>
             <span v-else>-</span>

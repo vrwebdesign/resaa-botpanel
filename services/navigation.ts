@@ -65,6 +65,11 @@ export default class NavigationService {
         icon: 'la-mobile',
         title: 'اپلیکیشن رسا',
         to: '/application'
+      },
+      {
+        icon: 'la-vial',
+        title: 'تست کرونا',
+        to: '/corona-test'
       }
     ]
   }

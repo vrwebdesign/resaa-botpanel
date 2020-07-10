@@ -1,5 +1,6 @@
 import '../application'
 import '../auth_user'
+import '../corona_test'
 import '../doctor_reviews'
 import '../doctors'
 import '../patients'

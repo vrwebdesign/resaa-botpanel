@@ -9,7 +9,6 @@
         :service="$service.corona_test"
         :filters="filters"
         :withRecycle="true"
-        :withAdd="false"
       >
         <template #items="{item}">
           <td>{{ item.id }}</td>
@@ -82,6 +81,10 @@ export default {
         {
           label: 'شماره همراه کاربر رسا ',
           model: 'phoneNumber'
+        },
+        {
+          label: 'کد پیگیری درگاه ',
+          model: 'trackingNumber'
         }
       ],
       service: this.$service.corona_test,

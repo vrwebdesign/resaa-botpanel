@@ -94,6 +94,17 @@ export default Vue.extend({
             model: 'chargeRequestId'
           },
           {
+            label: 'کد پیگیری درگاه',
+            type: 'textField',
+            placeholder: 'کد پیگیری درگاه ',
+            model: 'trackingNumber'
+          },
+          {
+            label: 'رسید کارت به کارت',
+            type: 'fileUpload',
+            model: 'trackingImage'
+          },
+          {
             label: 'توضیحات',
             type: 'textArea',
             placeholder: 'توضیحات ',

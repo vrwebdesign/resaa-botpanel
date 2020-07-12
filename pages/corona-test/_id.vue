@@ -53,6 +53,35 @@ export default Vue.extend({
             model: 'name'
           },
           {
+            label: 'کد ملی',
+            type: 'textField',
+            validation: { required: true, nationalCode: true },
+            placeholder: 'کد ملی را به فارسی وارد نمایید',
+            model: 'nationalCode'
+          },
+          {
+            label: 'علائم',
+            type: 'autocomplete',
+            validation: { required: true },
+            chips: true,
+            items: [
+              { text: 'تب', value: 'تب' },
+              { text: 'لرز', value: 'لرز' },
+              { text: 'سر درد', value: 'سر درد' },
+              { text: 'اسهال', value: 'اسهال' },
+              { text: 'استفراغ', value: 'استفراغ' },
+              { text: 'گلو درد', value: 'گلو درد' },
+              { text: 'سرفه', value: 'سرفه' },
+              { text: 'تنگی نفس', value: 'تنگی نفس' },
+              { text: 'درد عضلات', value: 'درد عضلات' },
+              { text: 'ضعف حس بویایی', value: 'ضعف حس بویایی' },
+              { text: 'ضعف حس چشایی', value: 'ضعف حس چشایی' }
+            ],
+            multiple: true,
+            placeholder: 'علائم',
+            model: 'symptoms'
+          },
+          {
             label: 'شماره همراه بیمار',
             type: 'textField',
             validation: { required: true, mobile: true },

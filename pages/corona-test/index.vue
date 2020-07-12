@@ -14,7 +14,7 @@
           <td>{{ item.id }}</td>
           <td>{{ item.name }}</td>
           <td>{{ item.mobile }}</td>
-          <td>{{ item.phoneNumber }}</td>
+          <td>{{ item.nationalCode }}</td>
           <td>
             <vr-badge
               :color="colors.corona_test[item.doctor_id]"
@@ -50,7 +50,7 @@ export default {
         { text: 'نام کاربر', align: 'right', value: 'name', width: '10%' },
         { text: 'شماره کاربر', align: 'right', value: 'mobile', width: '10%' },
         {
-          text: 'شماره رسا ',
+          text: 'کد ملی',
           align: 'right',
           value: 'phoneNumber',
           width: '10%'
@@ -85,6 +85,10 @@ export default {
         {
           label: 'کد پیگیری درگاه ',
           model: 'trackingNumber'
+        },
+        {
+          label: 'کد ملی ',
+          model: 'nationalCode'
         }
       ],
       service: this.$service.corona_test,

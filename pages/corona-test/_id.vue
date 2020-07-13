@@ -39,8 +39,17 @@ export default Vue.extend({
       {
         rows: [
           {
+            label: 'وضعیت',
+            type: 'select',
+            validation: { required: true },
+            items: this.$enum.corona_test_status.toSelect,
+            placeholder: 'وضعیت',
+            model: 'status'
+          },
+          {
             label: 'نوع تست',
             type: 'select',
+            validation: { required: true },
             items: this.$enum.corona_test.toSelect,
             placeholder: 'نوع تست ',
             model: 'doctor_id'
@@ -81,6 +90,7 @@ export default Vue.extend({
             placeholder: 'علائم',
             model: 'symptoms'
           },
+
           {
             label: 'شماره همراه بیمار',
             type: 'textField',
@@ -105,6 +115,7 @@ export default Vue.extend({
           {
             label: 'قیمت',
             type: 'currency',
+            validation: { required: true },
             placeholder: 'قیمت را به تومان وارد نمایید',
             suffix: 'تومان',
             model: 'amount'
@@ -112,16 +123,10 @@ export default Vue.extend({
           {
             label: 'وضعیت پرداخت',
             type: 'select',
+            validation: { required: true },
             items: this.$enum.corona_test_payment_status.toSelect,
             placeholder: 'وضعیت پرداخت ',
             model: 'payment_status'
-          },
-          {
-            label: 'وضعیت',
-            type: 'select',
-            items: this.$enum.corona_test_status.toSelect,
-            placeholder: 'وضعیت',
-            model: 'status'
           },
           {
             label: 'کد پیگیری پرداخت',

@@ -112,8 +112,15 @@ export default Vue.extend({
           {
             label: 'وضعیت پرداخت',
             type: 'select',
-            items: this.$enum.corona_test_status.toSelect,
+            items: this.$enum.corona_test_payment_status.toSelect,
             placeholder: 'وضعیت پرداخت ',
+            model: 'payment_status'
+          },
+          {
+            label: 'وضعیت',
+            type: 'select',
+            items: this.$enum.corona_test_status.toSelect,
+            placeholder: 'وضعیت',
             model: 'status'
           },
           {

@@ -1,5 +1,7 @@
 export default {
   pending: 'indigo',
-  paid: 'green',
+  cordinated: 'pink',
+  referred: 'orange',
+  test_result_posted: 'green',
   canceled: 'red'
 }

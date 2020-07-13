@@ -23,8 +23,13 @@
           <td>{{item.amount | currency | persianDigit}} تومان</td>
           <td>
             <vr-badge
-              :color="colors.corona_test_status[item.status]"
+              :color="colors.corona_test_payment_status[item.payment_status]"
               type="dot"
+            >{{ item.payment_status | enum('corona_test_payment_status') }}</vr-badge>
+          </td>
+          <td>
+            <vr-badge
+              :color="colors.corona_test_status[item.status]"
             >{{ item.status | enum('corona_test_status') }}</vr-badge>
           </td>
           <td
@@ -57,6 +62,12 @@ export default {
         },
         { text: 'نوع تست', align: 'right', value: 'doctor_id', width: '10%' },
         { text: 'قیمت', align: 'right', value: 'amount', width: '10%' },
+        {
+          text: 'وضعیت پرداخت',
+          align: 'right',
+          value: 'payment_status',
+          width: '10%'
+        },
         { text: 'وضعیت', align: 'right', value: 'status', width: '10%' },
         {
           text: 'تاریخ ایجاد',
@@ -89,6 +100,30 @@ export default {
         {
           label: 'کد ملی ',
           model: 'nationalCode'
+        },
+        {
+          label: 'وضعیت',
+          model: 'status:=',
+          type: 'select',
+          items: [
+            {
+              text: 'همه',
+              value: null
+            },
+            ...this.$enum.corona_test_status.toSelect
+          ]
+        },
+        {
+          label: 'وضعیت پرداخت',
+          model: 'payment_status:=',
+          type: 'select',
+          items: [
+            {
+              text: 'همه',
+              value: null
+            },
+            ...this.$enum.corona_test_payment_status.toSelect
+          ]
         }
       ],
       service: this.$service.corona_test,

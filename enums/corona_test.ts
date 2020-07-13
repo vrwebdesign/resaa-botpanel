@@ -5,8 +5,8 @@ export interface CoronaTest {
   toSelect: { text: string; value: string }[]
 }
 const coronaTest = {
-  2304: 'تست PCR',
-  2305: 'تست AntyBody',
+  2304: 'تست AntyBody',
+  2305: 'تست PCR',
   2306: 'PCR & AntyBody'
 }
 export default coronaTest

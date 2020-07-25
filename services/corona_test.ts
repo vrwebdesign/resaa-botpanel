@@ -5,6 +5,9 @@ export default class CoronaTestService extends BaseService<ICoronaTest> {
   constructor(public $axios: NuxtAxiosInstance) {
     super($axios, 'admin/corona_test')
   }
+  exportExcel() {
+    this.$axios.$get(`${this.path}/exportExcel`)
+  }
 }
 
 declare module 'vue/types/vue' {

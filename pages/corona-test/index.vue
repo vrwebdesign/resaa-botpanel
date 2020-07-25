@@ -11,6 +11,16 @@
         :withRecycle="true"
         :syncUrl="true"
       >
+        <template #toollbar_left>
+          <v-btn color="pink" round outline>
+            <v-icon class="ml-2">la-history</v-icon>
+            <span>پیگیری</span>
+          </v-btn>
+          <v-btn color="green" :href="ExportExcel" download round outline>
+            <v-icon class="ml-2">import_export</v-icon>
+            <span>خروجی اکسل</span>
+          </v-btn>
+        </template>
         <template #items="{item}">
           <td>{{ item.id }}</td>
           <td>{{ item.name }}</td>
@@ -37,6 +47,14 @@
             class="text-xs-center"
             dir="ltr"
           >{{ item.created_at | persianDate('jYYYY-jMM-jDD HH:mm') | persianDigit }}</td>
+        </template>
+        <template #actions_right="{item}">
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <v-icon v-on="on">{{item.description?"la-exclamation":"a"}}</v-icon>
+            </template>
+            <span>{{item.description}}</span>
+          </v-tooltip>
         </template>
       </vr-data-grid>
     </v-card>
@@ -131,6 +149,19 @@ export default {
       colors
     }
   },
-  mounted() {}
+  mounted() {},
+  computed: {
+    ExportExcel() {
+      debugger
+      let token = this.$store.getters['auth/token']
+      let url = `${window.location.origin}/api/admin/corona_test/exportExcel?token=${token}`
+      return url
+    }
+  },
+  methods: {
+    exportExcel() {
+      this.$service.corona_test.exportExcel()
+    }
+  }
 }
 </script>

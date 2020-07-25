@@ -1,4 +1,5 @@
 export default {
   paid: 'green',
-  unpaid: 'red'
+  unpaid: 'red',
+  returned: 'cyan'
 }

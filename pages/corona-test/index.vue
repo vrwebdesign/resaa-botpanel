@@ -9,6 +9,7 @@
         :service="$service.corona_test"
         :filters="filters"
         :withRecycle="true"
+        :syncUrl="true"
       >
         <template #items="{item}">
           <td>{{ item.id }}</td>

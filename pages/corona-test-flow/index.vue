@@ -6,21 +6,13 @@
       <vr-data-grid
         :headers="headers"
         :title="title"
-        :service="$service.corona_test"
+        :editUrl="'/corona-test/:id'"
         :filters="filters"
+        :withAdd="false"
+        :queryService="queryService"
         :withRecycle="true"
         :syncUrl="true"
       >
-        <template #toollbar_left>
-          <v-btn color="pink" round outline to="/corona-test-flow">
-            <v-icon class="ml-2">la-history</v-icon>
-            <span>پیگیری</span>
-          </v-btn>
-          <v-btn color="green" :href="ExportExcel" download round outline>
-            <v-icon class="ml-2">import_export</v-icon>
-            <span>خروجی اکسل</span>
-          </v-btn>
-        </template>
         <template #items="{item}">
           <td>{{ item.id }}</td>
           <td>{{ item.name }}</td>
@@ -43,10 +35,9 @@
               :color="colors.corona_test_status[item.status]"
             >{{ item.status | enum('corona_test_status') }}</vr-badge>
           </td>
-          <td
-            class="text-xs-center"
-            dir="ltr"
-          >{{ item.created_at | persianDate('jYYYY-jMM-jDD HH:mm') | persianDigit }}</td>
+          <td class="text-xs-center" dir="ltr">
+            <vr-badge :color="calc_color(item)">{{ calc_hour(item) }}</vr-badge>
+          </td>
         </template>
         <template #actions_right="{item}">
           <v-tooltip top>
@@ -62,11 +53,12 @@
 </template>
 <script>
 import colors from '@/colors'
+import moment from 'moment-jalaali'
 export default {
   data() {
     return {
       title: {
-        text: 'درخواست های تست کرونا',
+        text: 'پیگیری های تست کرونا',
         icon: 'la-vial'
       },
       headers: [
@@ -89,7 +81,7 @@ export default {
         },
         { text: 'وضعیت', align: 'right', value: 'status', width: '10%' },
         {
-          text: 'تاریخ ایجاد',
+          text: 'زمان',
           align: 'right',
           value: 'created_at',
           width: '10%'
@@ -119,33 +111,8 @@ export default {
         {
           label: 'کد ملی ',
           model: 'nationalCode'
-        },
-        {
-          label: 'وضعیت',
-          model: 'status:=',
-          type: 'select',
-          items: [
-            {
-              text: 'همه',
-              value: null
-            },
-            ...this.$enum.corona_test_status.toSelect
-          ]
-        },
-        {
-          label: 'وضعیت پرداخت',
-          model: 'payment_status:=',
-          type: 'select',
-          items: [
-            {
-              text: 'همه',
-              value: null
-            },
-            ...this.$enum.corona_test_payment_status.toSelect
-          ]
         }
       ],
-      service: this.$service.corona_test,
       colors
     }
   },
@@ -158,8 +125,28 @@ export default {
     }
   },
   methods: {
-    exportExcel() {
-      this.$service.corona_test.exportExcel()
+    queryService() {
+      return this.$service.corona_test.flow()
+    },
+    calc_color(item) {
+      let hour = this.calc_difs(item)
+      if (hour > 92) {
+        return 'red darken-3'
+      }
+      if (hour > 72) {
+        return 'pink'
+      }
+      return 'green'
+    },
+    calc_hour(item) {
+      let hour = this.calc_difs(item)
+      return hour
+    },
+    calc_difs(item) {
+      let now = moment()
+      let start = moment(item.created_at)
+      let remain = moment.duration(now.diff(start)).as('hours')
+      return Math.ceil(remain)
     }
   }
 }

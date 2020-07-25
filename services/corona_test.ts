@@ -6,7 +6,10 @@ export default class CoronaTestService extends BaseService<ICoronaTest> {
     super($axios, 'admin/corona_test')
   }
   exportExcel() {
-    this.$axios.$get(`${this.path}/exportExcel`)
+    return this.$axios.$get(`${this.path}/exportExcel`)
+  }
+  flow() {
+    return this.$axios.$get(`${this.path}/flow`)
   }
 }
 

@@ -125,8 +125,8 @@ export default {
     }
   },
   methods: {
-    queryService() {
-      return this.$service.corona_test.flow()
+    queryService(params) {
+      return this.$service.corona_test.flow(params)
     },
     calc_color(item) {
       let hour = this.calc_difs(item)

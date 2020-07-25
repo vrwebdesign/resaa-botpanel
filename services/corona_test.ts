@@ -8,8 +8,8 @@ export default class CoronaTestService extends BaseService<ICoronaTest> {
   exportExcel() {
     return this.$axios.$get(`${this.path}/exportExcel`)
   }
-  flow() {
-    return this.$axios.$get(`${this.path}/flow`)
+  flow(params) {
+    return this.$axios.$get(`${this.path}/flow`, { params })
   }
 }
 

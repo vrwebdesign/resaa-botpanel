@@ -1,7 +1,6 @@
 type applicationstatus = 'default' | 'force' | 'urgent' | 'notify' | 'internal'
 export interface IApplicationType {
   default: string
-  force: string
   urgent: string
   notify: string
   internal: string
@@ -9,7 +8,6 @@ export interface IApplicationType {
 }
 const applicationstatus = {
   default: 'default',
-  force: 'force',
   urgent: 'urgent',
   notify: 'notify',
   internal: 'internal'

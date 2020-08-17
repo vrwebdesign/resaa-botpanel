@@ -1,5 +1,5 @@
 FROM node:11
-WORKDIR /usr/src/app
+WORKDIR /app
 COPY . .
 RUN yarn install
 ENV HOST 0.0.0.0

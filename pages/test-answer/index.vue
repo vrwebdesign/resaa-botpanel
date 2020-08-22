@@ -165,11 +165,7 @@ export default {
           model: 'user.phone'
         },
         {
-          label: 'نام یا نام خانودگی پزشک',
-          model: 'doctor'
-        },
-        {
-          label: 'کد پزشک',
+          label: 'نام، نام خانودگی یا کد پزشک',
           model: 'doctor'
         }
       ],

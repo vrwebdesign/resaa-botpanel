@@ -165,16 +165,12 @@ export default {
           model: 'user.phone'
         },
         {
-          label: 'نام پزشک',
-          model: 'doctor.first_name'
-        },
-        {
-          label: 'نام خانوادگی پزشک',
-          model: 'doctor.last_name'
+          label: 'نام یا نام خانودگی پزشک',
+          model: 'doctor'
         },
         {
           label: 'کد پزشک',
-          model: 'doctor.subscriber_number'
+          model: 'doctor'
         }
       ],
       service: this.$service.test_answer,

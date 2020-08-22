@@ -159,6 +159,22 @@ export default {
         {
           label: 'آیدی',
           model: 'id:='
+        },
+        {
+          label: 'شماره همراه کاربر',
+          model: 'user.phone'
+        },
+        {
+          label: 'نام پزشک',
+          model: 'doctor.first_name'
+        },
+        {
+          label: 'نام خانوادگی پزشک',
+          model: 'doctor.last_name'
+        },
+        {
+          label: 'کد پزشک',
+          model: 'doctor.subscriber_number'
         }
       ],
       service: this.$service.test_answer,

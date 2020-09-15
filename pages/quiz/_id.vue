@@ -7,31 +7,34 @@
       :loading="loading"
       :item="item"
       :formData="formData"
-      :service="service"
+      :service="$service.quiz"
     ></vr-form-generator>
   </section>
 </template>
 <script lang="ts">
-import Vue from 'vue'
 import { VRFormData } from 'vrwebdesign-nuxt/modules/nuxt-form-generator'
 import quizAnswer from '@/components/quiz/quizAnswer.vue'
-export default Vue.extend({
-  data() {
-    return {
-      date: null,
-      title: '',
-      service: this.$service.quiz,
-      loading: this.$route.params.id ? false : true,
-      formData: <VRFormData>[],
-      item: <any>{
-        answers: []
-      }
-    }
-  },
+import { Vue, Component, Prop, Watch, Emit, Ref } from 'vue-property-decorator'
+
+Component.registerHooks(['meta'])
+@Component({
+  middleware: 'authorization'
+})
+export default class component_name extends Vue {
+  date = null
+  title = ''
+  loading = true
+  formData = <VRFormData>[]
+  item = <any>{
+    answers: []
+  }
+  get meta() {
+    return { roles: ['administrator', 'bot_admin'] }
+  }
   async mounted() {
     if (this.$route.params.id !== 'create') {
       this.loading = true
-      this.item = await this.service.$get(this.$route.params.id)
+      this.item = await this.$service.quiz.$get(this.$route.params.id)
       this.formData = [
         {
           rows: [
@@ -98,5 +101,5 @@ export default Vue.extend({
       ]
     }
   }
-})
+}
 </script>

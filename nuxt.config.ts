@@ -70,7 +70,7 @@ export default {
     'animate.css/animate.css',
     'vrwebdesign-nuxt/assets/style/main.scss'
   ],
-  plugins: ['~/plugins/vuetify.ts'],
+  plugins: ['~/plugins/vuetify.ts', '~/plugins/interceptor.ts'],
   modules: [
     '@nuxtjs/style-resources',
     '@nuxtjs/recaptcha',

@@ -7,29 +7,32 @@
       :loading="loading"
       :item="item"
       :formData="formData"
-      :service="service"
+      :service="$service.application"
     ></vr-form-generator>
   </section>
 </template>
 <script lang="ts">
-import Vue from 'vue'
 import { VRFormData } from 'vrwebdesign-nuxt/modules/nuxt-form-generator'
 import quizAnswer from '@/components/quiz/quizAnswer.vue'
-export default Vue.extend({
-  data() {
-    return {
-      date: null,
-      title: '',
-      service: this.$service.application,
-      loading: this.$route.params.id ? false : true,
-      formData: <VRFormData>[],
-      item: <any>{}
-    }
-  },
+import { Vue, Component, Prop, Watch, Emit, Ref } from 'vue-property-decorator'
+
+Component.registerHooks(['meta'])
+@Component({
+  middleware: 'authorization'
+})
+export default class ApplicationEditPage extends Vue {
+  date = null
+  title = ''
+  loading = true
+  formData = <VRFormData>[]
+  item = <any>{}
+  get meta() {
+    return { roles: ['administrator', 'application_admin'] }
+  }
   async mounted() {
     if (this.$route.params.id !== 'create') {
       this.loading = true
-      this.item = await this.service.$get(this.$route.params.id)
+      this.item = await this.$service.application.$get(this.$route.params.id)
       this.title = `ویرایش ورژن {{version}}`
       this.loading = false
     } else {
@@ -64,5 +67,5 @@ export default Vue.extend({
       }
     ]
   }
-})
+}
 </script>

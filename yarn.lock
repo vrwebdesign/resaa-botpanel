@@ -7409,6 +7409,11 @@ redent@^1.0.0:
     indent-string "^2.1.0"
     strip-indent "^1.0.1"
 
+reflect-metadata@^0.1.13:
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/reflect-metadata/-/reflect-metadata-0.1.13.tgz#67ae3ca57c972a2aa1642b10fe363fe32d49dc08"
+  integrity sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==
+
 regenerate-unicode-properties@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/regenerate-unicode-properties/-/regenerate-unicode-properties-8.1.0.tgz#ef51e0f0ea4ad424b77bf7cb41f3e015c70a3f0e"
@@ -8967,10 +8972,10 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.0.tgz#bd76d6a23323e2ca8ffa12028dc04559c75f9019"
   integrity sha512-iq+S7vZJE60yejDYM0ek6zg308+UZsdtPExWP9VZoCFCz1zkJoXFnAX7aZfd/ZwrkidzdUZL0C/ryW+JwAiIGw==
 
-vrwebdesign-nuxt@^1.10.16:
-  version "1.10.17"
-  resolved "https://registry.yarnpkg.com/vrwebdesign-nuxt/-/vrwebdesign-nuxt-1.10.17.tgz#99e74d727dbd010fe98081baf8be2f2cae3af89b"
-  integrity sha512-c6cXGvwPOiaVkbUYhMPg1IsiIh5fEs6deVMHS2KhCimZ835zzBq9IRHf92JogSsG2hJaKHYaJLRzLO5VtXEMVw==
+vrwebdesign-nuxt@^1.10.x:
+  version "1.10.20"
+  resolved "https://registry.yarnpkg.com/vrwebdesign-nuxt/-/vrwebdesign-nuxt-1.10.20.tgz#c894fd025f24ae19217641180a93daa7dc906c83"
+  integrity sha512-SDPGnsZ32Vu8uE5MgOF8NYxvOhR9jnH26A5p9zxDAAXAMnzjV4OypeIHBOSZe6+KCuCu+/BXW/H2lE3G6Guj2A==
   dependencies:
     "@nuxt/config" "^2.7.1"
     "@nuxtjs/axios" "^5.3.6"
@@ -9172,6 +9177,11 @@ vuetify@^1.5.5:
   version "1.5.18"
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.5.18.tgz#1522d7ef7686b4473bb67b274ae8bb7bca514d13"
   integrity sha512-TLtVYBlajKk+I99rUvQ7c/qlSJ3gqZZKkBaVWXy5bIDFzUyIChIIcaZM7k+J/JumxQYJqnJ9H24rAjddemWalQ==
+
+vuex-module-decorators@^0.16.1:
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/vuex-module-decorators/-/vuex-module-decorators-0.16.1.tgz#9e651d507057b07a1b52f0f65dfae97b9095f00f"
+  integrity sha512-Zz8HF2rMoDYf78uOBbWCq8wGFFo7YyNWc10Yj2eScKxVoRMla9HnFpiqvI3Dm0cLyOnBBklCn1AFUys62BZGAw==
 
 vuex@^3.1.1:
   version "3.1.1"

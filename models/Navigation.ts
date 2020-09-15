@@ -1,5 +1,6 @@
 export interface INav {
   icon?: string
   title: string
-  to: string
+  to?: string
+  child?: Array<INav>
 }

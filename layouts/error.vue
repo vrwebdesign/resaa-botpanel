@@ -6,6 +6,7 @@
 
 <script>
 import error404 from '~/components/error/error404'
+import error403 from '~/components/error/error403'
 import error550 from '~/components/error/error550'
 import errorGeneral from '~/components/error/errorGeneral'
 
@@ -22,6 +23,8 @@ export default {
     errorPage() {
       if (this.error.statusCode === 404 || this.error.statusCode == 410) {
         return error404
+      } else if (this.error.statusCode == 403) {
+        return error403
       } else {
         return error550
       }

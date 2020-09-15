@@ -7,73 +7,91 @@
       :loading="loading"
       :item="item"
       :formData="formData"
-      :service="service"
+      :service="$service.doctors"
     ></vr-form-generator>
   </section>
 </template>
 <script lang="ts">
-import Vue from 'vue'
+import { Vue, Component, Prop, Watch, Emit, Ref } from 'vue-property-decorator'
 import { VRFormData } from 'vrwebdesign-nuxt/modules/nuxt-form-generator'
 import quizAnswer from '@/components/quiz/quizAnswer.vue'
-export default Vue.extend({
-  data() {
-    return {
-      date: null,
-      title: <any>null,
-      service: this.$service.doctors,
-      loading: this.$route.params.id ? false : true,
-      formData: <VRFormData>[],
-      item: <any>{
-        answers: []
-      }
-    }
-  },
+Component.registerHooks(['meta'])
+@Component({
+  middleware: 'authorization'
+})
+export default class DoctorEditPage extends Vue {
+  date = null
+  title = <any>null
+  loading = true
+  formData = <VRFormData>[]
+  item = <any>{
+    answers: []
+  }
+  get meta() {
+    return { roles: ['administrator', 'bot_admin'] }
+  }
   async mounted() {
     if (this.$route.params.id == 'create') {
-      this.$router.go(-1)
+      this.title = `افزودن پزشک جدید`
     } else {
-      this.item = await this.service.$get(this.$route.params.id)
+      this.item = await this.$service.doctors.$get(this.$route.params.id)
       this.title = `ویرایش پزشک {{first_name}} {{last_name}}`
-      this.formData = [
-        {
-          rows: [
-            {
-              label: 'نام',
-              type: 'textField',
-              validation: { required: true },
-              placeholder: 'نام را به فارسی وارد نمایید',
-              model: 'first_name'
-            },
-            {
-              label: 'نام خانوادگی',
-              type: 'textField',
-              validation: { required: true },
-              placeholder: 'نام خانوادگی را به فارسی وارد نمایید',
-              model: 'last_name'
-            },
-            {
-              label: 'کد رسا',
-              type: 'textField',
-              validation: { required: true, number: true },
-              placeholder: 'کد رسا را به فارسی وارد نمایید',
-              model: 'subscriber_number'
-            },
-            {
-              label: 'توضیحات پزشک',
-              type: 'textArea',
-              placeholder: 'توضیحات پزشک',
-              model: 'description'
-            },
-            {
-              label: 'عکس پزشک',
-              type: 'fileUpload',
-              placeholder: 'عکس پزشک',
-              model: 'image'
-            }
-          ]
-        }
-      ]
     }
+    let specialities = await this.$service.specialities.$query({
+      perPage: 1000
+    })
+    let speciality_items = specialities.data.map(item => {
+      return {
+        text: item.title,
+        value: item.id
+      }
+    })
+    this.loading = false
+    this.formData = [
+      {
+        rows: [
+          {
+            label: 'نام',
+            type: 'textField',
+            validation: { required: true },
+            placeholder: 'نام را به فارسی وارد نمایید',
+            model: 'first_name'
+          },
+          {
+            label: 'نام خانوادگی',
+            type: 'textField',
+            validation: { required: true },
+            placeholder: 'نام خانوادگی را به فارسی وارد نمایید',
+            model: 'last_name'
+          },
+          {
+            label: 'کد رسا',
+            type: 'textField',
+            validation: { required: true, number: true },
+            placeholder: 'کد رسا را به فارسی وارد نمایید',
+            model: 'subscriber_number'
+          },
+          {
+            label: 'تخصص',
+            type: 'autocomplete',
+            items: speciality_items,
+            model: 'speciality_id'
+          },
+          {
+            label: 'توضیحات پزشک',
+            type: 'textArea',
+            placeholder: 'توضیحات پزشک',
+            model: 'description'
+          },
+          {
+            label: 'عکس پزشک',
+            type: 'fileUpload',
+            placeholder: 'عکس پزشک',
+            model: 'image'
+          }
+        ]
+      }
+    ]
   }
-})
+}
 </script>

@@ -6,7 +6,6 @@
       <vr-data-grid
         :headers="headers"
         :title="title"
-        :queryService="getService"
         :service="$service.quiz"
         :filters="filters"
         :withRecycle="true"
@@ -15,12 +14,15 @@
       >
         <template #items="{item}">
           <td>{{ item.id }}</td>
-          <td>{{ item.user.phone }}</td>
+          <td>
+            <span v-if="item.user">{{ item.user.phone }}</span>
+            <span v-else></span>
+          </td>
           <td>
             <span v-if="item.doctor">
               <a
                 target="_blank"
-                :href="`https://resaa.net/doctors/${item.doctor.specialty.description.toLowerCase().replace(/ /g,'-')}/${item.doctor.subscriberNumber}`"
+                :href="`https://resaa.net/doctors/${item.doctor.subscriberNumber}`"
               >{{ item.doctor.firstName }} {{item.doctor.lastName}}</a>
             </span>
             <span v-else>-</span>
@@ -106,62 +108,68 @@
     </v-card>
   </section>
 </template>
-<script>
+<script lang="ts">
 import colors from '@/colors'
-export default {
-  data() {
-    return {
-      title: {
-        text: 'لیست آزمایش ها',
-        icon: 'la-image'
-      },
-      headers: [
-        { text: 'آیدی', align: 'right', value: 'id', width: '5%' },
-        { text: 'کاربر', align: 'right', sortable: false, width: '10%' },
-        { text: 'پزشک', align: 'right', sortable: false, width: '10%' },
-        { text: 'قیمت', align: 'right', value: 'price', width: '10%' },
-        { text: 'وضعیت', align: 'right', value: 'status', width: '10%' },
-        {
-          text: 'رضایت کاربر',
-          align: 'center',
-          value: 'user_satisfaction',
-          width: '10%'
-        },
-        {
-          text: 'تایید مالی',
-          align: 'right',
-          value: 'is_confirm',
-          width: '10%'
-        },
-        {
-          text: 'تاریخ پاسخ ',
-          align: 'right',
-          value: 'answer_at',
-          width: '5%'
-        },
-        {
-          text: 'نوع پاسخ',
-          align: 'right',
-          value: 'answer_type',
-          width: '5%'
-        },
-        {
-          text: 'تاریخ ایجاد',
-          align: 'right',
-          value: 'created_at',
-          width: '10%'
-        }
-      ],
-      filters: [],
-      service: this.$service.test_answer,
-      colors
-    }
-  },
-  mounted() {},
-  methods: {
-    getService(params) {
-      return this.$service.test_answer.$query(params)
-    }
+import { Vue, Component, Prop, Watch, Emit, Ref } from 'vue-property-decorator'
+
+@Component
+export default class TestAnswerPage extends Vue {
+  title = {
+    text: 'لیست آزمایش ها',
+    icon: 'la-image'
   }
+  headers = [
+    { text: 'آیدی', align: 'right', value: 'id', width: '5%' },
+    { text: 'کاربر', align: 'right', sortable: false, width: '10%' },
+    { text: 'پزشک', align: 'right', sortable: false, width: '10%' },
+    { text: 'قیمت', align: 'right', value: 'price', width: '10%' },
+    { text: 'وضعیت', align: 'right', value: 'status', width: '10%' },
+    {
+      text: 'رضایت کاربر',
+      align: 'center',
+      value: 'user_satisfaction',
+      width: '10%'
+    },
+    {
+      text: 'تایید مالی',
+      align: 'right',
+      value: 'is_confirm',
+      width: '10%'
+    },
+    {
+      text: 'تاریخ پاسخ ',
+      align: 'right',
+      value: 'answer_at',
+      width: '5%'
+    },
+    {
+      text: 'نوع پاسخ',
+      align: 'right',
+      value: 'answer_type',
+      width: '5%'
+    },
+    {
+      text: 'تاریخ ایجاد',
+      align: 'right',
+      value: 'created_at',
+      width: '10%'
+    }
+  ]
+  filters = [
+    {
+      label: 'آیدی',
+      model: 'id:='
+    },
+    {
+      label: 'شماره همراه کاربر',
+      model: 'user.phone'
+    },
+    {
+      label: 'نام، نام خانودگی یا کد پزشک',
+      model: 'doctor'
+    }
+  ]
+
+  colors = colors
 }
 </script>

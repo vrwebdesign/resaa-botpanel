@@ -66,9 +66,10 @@ export default class component_name extends Vue {
           ]
         }
       ]
-      this.title = `ویرایش کویز {{title}}`
       this.loading = false
+      this.title = `ویرایش کویز {{title}}`
     } else {
+      this.loading = false
       this.title = 'ایجاد کویز جدید'
       this.formData = [
         {

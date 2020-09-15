@@ -6,7 +6,7 @@
       <vr-data-grid
         :headers="headers"
         :title="title"
-        :service="$service.quiz"
+        :service="$service.test_answer"
         :filters="filters"
         :withRecycle="true"
         :hideActionEdit="true"

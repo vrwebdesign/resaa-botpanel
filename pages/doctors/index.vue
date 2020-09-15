@@ -30,80 +30,82 @@
     </v-card>
   </section>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      title: {
-        text: 'لیست پزشکان',
-        icon: 'la-user-md'
-      },
-      headers: [
-        {
-          text: 'عکس',
-          align: 'right',
-          sortable: false,
-          width: '10%'
-        },
-        {
-          text: 'نام',
-          align: 'right',
-          value: 'first_name',
-          width: '10%'
-        },
-        {
-          text: 'نام خانوادگی',
-          align: 'right',
-          value: 'last_name',
-          width: '20%'
-        },
-        {
-          text: 'کد رسا',
-          align: 'right',
-          value: 'subscriber_number',
-          width: '20%'
-        },
-        { text: 'تخصص', align: 'right', sortable: false, width: '20%' },
-        {
-          text: 'تاریخ ایجاد',
-          align: 'right',
-          value: 'created_at',
-          width: '10%'
-        }
-      ],
-      filters: [
-        {
-          icon: 'la-search',
-          name: 'name',
-          model: 'first_name',
-          label: 'نام پزشک'
-        },
-        {
-          icon: 'la-search',
-          name: 'family',
-          model: 'last_name',
-          label: ' نام خانوادگی پرشک'
-        },
-        {
-          icon: 'la-search',
-          name: 'national_code',
-          model: 'subscriber_number',
-          label: 'کد پزشک'
-        },
-        {
-          icon: 'la-search',
-          name: 'speciality',
-          model: 'speciality.title',
-          label: 'تخصص'
-        }
-      ]
+<script lang="ts">
+import { Vue, Component, Prop, Watch, Emit, Ref } from 'vue-property-decorator'
+Component.registerHooks(['meta'])
+@Component({
+  middleware: 'authorization'
+})
+export default class DoctorPage extends Vue {
+  title = {
+    text: 'لیست پزشکان',
+    icon: 'la-user-md'
+  }
+  headers = [
+    {
+      text: 'عکس',
+      align: 'right',
+      sortable: false,
+      width: '10%'
+    },
+    {
+      text: 'نام',
+      align: 'right',
+      value: 'first_name',
+      width: '10%'
+    },
+    {
+      text: 'نام خانوادگی',
+      align: 'right',
+      value: 'last_name',
+      width: '20%'
+    },
+    {
+      text: 'کد رسا',
+      align: 'right',
+      value: 'subscriber_number',
+      width: '20%'
+    },
+    { text: 'تخصص', align: 'right', sortable: false, width: '20%' },
+    {
+      text: 'تاریخ ایجاد',
+      align: 'right',
+      value: 'created_at',
+      width: '10%'
     }
-  },
-  mounted() {},
-  methods: {
-    getService(params) {
-      return this.$service.doctors.$query(params)
+  ]
+  filters = [
+    {
+      icon: 'la-search',
+      name: 'name',
+      model: 'first_name',
+      label: 'نام پزشک'
+    },
+    {
+      icon: 'la-search',
+      name: 'family',
+      model: 'last_name',
+      label: ' نام خانوادگی پرشک'
+    },
+    {
+      icon: 'la-search',
+      name: 'national_code',
+      model: 'subscriber_number',
+      label: 'کد پزشک'
+    },
+    {
+      icon: 'la-search',
+      name: 'speciality',
+      model: 'speciality.title',
+      label: 'تخصص'
     }
+  ]
+  get meta() {
+    return { roles: ['administrator', 'bot_admin'] }
+  }
+  getService(params) {
+    return this.$service.doctors.$query(params)
   }
 }
 </script>
+

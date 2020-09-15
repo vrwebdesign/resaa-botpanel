@@ -60,107 +60,106 @@
     </v-card>
   </section>
 </template>
-<script>
+<script lang="ts">
+import { Vue, Component, Prop, Watch, Emit, Ref } from 'vue-property-decorator'
 import colors from '@/colors'
-export default {
-  data() {
-    return {
-      title: {
-        text: 'درخواست های تست کرونا',
-        icon: 'la-vial'
-      },
-      headers: [
-        { text: 'آیدی', align: 'right', value: 'id', width: '5%' },
-        { text: 'نام کاربر', align: 'right', value: 'name', width: '10%' },
-        { text: 'شماره کاربر', align: 'right', value: 'mobile', width: '10%' },
-        {
-          text: 'کد ملی',
-          align: 'right',
-          value: 'phoneNumber',
-          width: '10%'
-        },
-        { text: 'نوع تست', align: 'right', value: 'doctor_id', width: '10%' },
-        { text: 'قیمت', align: 'right', value: 'amount', width: '10%' },
-        {
-          text: 'وضعیت پرداخت',
-          align: 'right',
-          value: 'payment_status',
-          width: '10%'
-        },
-        { text: 'وضعیت', align: 'right', value: 'status', width: '10%' },
-        {
-          text: 'تاریخ ایجاد',
-          align: 'right',
-          value: 'created_at',
-          width: '10%'
-        }
-      ],
-      filters: [
-        {
-          label: 'آیدی',
-          model: 'id:='
-        },
-        {
-          label: 'نام کاربر',
-          model: 'name'
-        },
-        {
-          label: 'شماره همراه کاربر',
-          model: 'mobile'
-        },
-        {
-          label: 'شماره همراه کاربر رسا ',
-          model: 'phoneNumber'
-        },
-        {
-          label: 'کد پیگیری درگاه ',
-          model: 'trackingNumber'
-        },
-        {
-          label: 'کد ملی ',
-          model: 'nationalCode'
-        },
-        {
-          label: 'وضعیت',
-          model: 'status:=',
-          type: 'select',
-          items: [
-            {
-              text: 'همه',
-              value: null
-            },
-            ...this.$enum.corona_test_status.toSelect
-          ]
-        },
-        {
-          label: 'وضعیت پرداخت',
-          model: 'payment_status:=',
-          type: 'select',
-          items: [
-            {
-              text: 'همه',
-              value: null
-            },
-            ...this.$enum.corona_test_payment_status.toSelect
-          ]
-        }
-      ],
-      service: this.$service.corona_test,
-      colors
+Component.registerHooks(['meta'])
+@Component({
+  middleware: 'authorization'
+})
+export default class CoronaTestPage extends Vue {
+  title = {
+    text: 'درخواست های تست کرونا',
+    icon: 'la-vial'
+  }
+  headers = [
+    { text: 'آیدی', align: 'right', value: 'id', width: '5%' },
+    { text: 'نام کاربر', align: 'right', value: 'name', width: '10%' },
+    { text: 'شماره کاربر', align: 'right', value: 'mobile', width: '10%' },
+    {
+      text: 'کد ملی',
+      align: 'right',
+      value: 'phoneNumber',
+      width: '10%'
+    },
+    { text: 'نوع تست', align: 'right', value: 'doctor_id', width: '10%' },
+    { text: 'قیمت', align: 'right', value: 'amount', width: '10%' },
+    {
+      text: 'وضعیت پرداخت',
+      align: 'right',
+      value: 'payment_status',
+      width: '10%'
+    },
+    { text: 'وضعیت', align: 'right', value: 'status', width: '10%' },
+    {
+      text: 'تاریخ ایجاد',
+      align: 'right',
+      value: 'created_at',
+      width: '10%'
     }
-  },
-  mounted() {},
-  computed: {
-    ExportExcel() {
-      let token = this.$store.getters['auth/token']
-      let url = `${window.location.origin}/api/admin/corona_test/exportExcel?token=${token}`
-      return url
+  ]
+  filters = [
+    {
+      label: 'آیدی',
+      model: 'id:='
+    },
+    {
+      label: 'نام کاربر',
+      model: 'name'
+    },
+    {
+      label: 'شماره همراه کاربر',
+      model: 'mobile'
+    },
+    {
+      label: 'شماره همراه کاربر رسا ',
+      model: 'phoneNumber'
+    },
+    {
+      label: 'کد پیگیری درگاه ',
+      model: 'trackingNumber'
+    },
+    {
+      label: 'کد ملی ',
+      model: 'nationalCode'
+    },
+    {
+      label: 'وضعیت',
+      model: 'status:=',
+      type: 'select',
+      items: [
+        {
+          text: 'همه',
+          value: null
+        },
+        ...this.$enum.corona_test_status.toSelect
+      ]
+    },
+    {
+      label: 'وضعیت پرداخت',
+      model: 'payment_status:=',
+      type: 'select',
+      items: [
+        {
+          text: 'همه',
+          value: null
+        },
+        ...this.$enum.corona_test_payment_status.toSelect
+      ]
     }
-  },
-  methods: {
-    exportExcel() {
-      this.$service.corona_test.exportExcel()
-    }
+  ]
+  colors = colors
+  get ExportExcel() {
+    let token = this.$store.getters['auth/token']
+    let url = `${window.location.origin}/api/admin/corona_test/exportExcel?token=${token}`
+    return url
+  }
+  get meta() {
+    return { roles: ['administrator', 'corona_admin'] }
+  }
+  exportExcel() {
+    this.$service.corona_test.exportExcel()
   }
 }
 </script>
+

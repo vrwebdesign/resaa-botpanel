@@ -15,7 +15,7 @@
           <v-tooltip top>
             <template v-slot:activator="{ on }">
               <v-btn icon depressed text :ripple="false" v-on="on">
-                <v-icon @click="send_test(item)">la-send</v-icon>
+                <v-icon @click="send_test(item)">la-paper-plane</v-icon>
               </v-btn>
             </template>
             <span>ارسال تستی</span>
@@ -68,68 +68,70 @@
     </v-card>
   </section>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      title: {
-        text: 'لیست سوال ها',
-        icon: 'la-question'
-      },
-      headers: [
-        { text: 'آیدی', align: 'right', value: 'id', width: '20%' },
-        { text: 'عکس', align: 'right', sortable: false, width: '20%' },
-        { text: 'عنوان', align: 'right', value: 'title', width: '20%' },
-        { text: 'متن سوال', align: 'right', value: 'question', width: '20%' },
-        { text: 'پاسخ کاربران', align: 'right', sortable: false, width: '20%' },
-        {
-          text: 'پاسخ ها',
-          align: 'right',
-          sortable: false,
-          width: '10%'
-        },
-        {
-          text: 'تاریخ ایجاد',
-          align: 'right',
-          value: 'created_at',
-          width: '10%'
-        },
-        {
-          text: 'تاریخ ارسال',
-          align: 'right',
-          sortable: false,
-          width: '10%'
-        }
-      ],
-      filters: [],
-      service: this.$service.students
-    }
-  },
-  mounted() {},
-  methods: {
-    getService(params) {
-      return this.$service.quiz.$query(params)
+<script lang="ts">
+import { Vue, Component, Prop, Watch, Emit, Ref } from 'vue-property-decorator'
+
+Component.registerHooks(['meta'])
+@Component({
+  middleware: 'authorization'
+})
+export default class QuizPage extends Vue {
+  title = {
+    text: 'لیست سوال ها',
+    icon: 'la-question'
+  }
+  headers = [
+    { text: 'آیدی', align: 'right', value: 'id', width: '20%' },
+    { text: 'عکس', align: 'right', sortable: false, width: '20%' },
+    { text: 'عنوان', align: 'right', value: 'title', width: '20%' },
+    { text: 'متن سوال', align: 'right', value: 'question', width: '20%' },
+    { text: 'پاسخ کاربران', align: 'right', sortable: false, width: '20%' },
+    {
+      text: 'پاسخ ها',
+      align: 'right',
+      sortable: false,
+      width: '10%'
     },
-    async send_test(item) {
+    {
+      text: 'تاریخ ایجاد',
+      align: 'right',
+      value: 'created_at',
+      width: '10%'
+    },
+    {
+      text: 'تاریخ ارسال',
+      align: 'right',
+      sortable: false,
+      width: '10%'
+    }
+  ]
+  filters = []
+  get meta() {
+    return { roles: ['administrator', 'bot_admin'] }
+  }
+  getService(params) {
+    return this.$service.quiz.$query(params)
+  }
+  async send_test(item) {
+    try {
+      let chat_id = await this.$dialog
+        .title('چت آیدی مورد نظر را وارد نمایید')
+        .prompt()
       try {
-        let chat_id = await this.$dialog
-          .title('چت آیدی مورد نظر را وارد نمایید')
-          .prompt()
-        try {
-          let response = await this.$service.quiz.send_test(item.id, chat_id)
-          this.$toast.success().showSimple('با موفقیت ارسال شد')
-        } catch (error) {
-          console.log(error)
-          this.$toast.error().showSimple('با مشکل مواجه شد')
-        }
-      } catch (error) {}
-    },
-    correct_answers(item) {
-      return item.quiz_answers.filter(item => item.is_correct == 1).length
-    },
-    incorrect_answers(item) {
-      return item.quiz_answers.filter(item => item.is_correct == 0).length
-    }
+        let response = await this.$service.quiz.send_test(item.id, chat_id)
+        this.$toast.success().showSimple('با موفقیت ارسال شد')
+      } catch (error) {
+        console.log(error)
+        this.$toast.error().showSimple('با مشکل مواجه شد')
+      }
+    } catch (error) {}
+  }
+  correct_answers(item) {
+    return item.quiz_answers.filter(item => item.is_correct == 1).length
+  }
+  incorrect_answers(item) {
+    return item.quiz_answers.filter(item => item.is_correct == 0).length
   }
 }
 </script>
+

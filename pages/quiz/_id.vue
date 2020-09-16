@@ -60,15 +60,27 @@ export default class component_name extends Vue {
               model: 'image'
             },
             {
+              label: 'تاریخ ارسال',
+              validation: { required: true },
+              disabled: this.item.is_posted == 1 ? true : false,
+              type: 'datePicker',
+              datePickerType: 'datetime',
+              // appendIcon: 'event',
+              format: 'jYYYY/jMM/jDD HH:mm',
+              placeholder: 'تاریخ ارسال را وارد نمایید',
+              model: 'send_time'
+            },
+            {
               component: quizAnswer,
               model: 'answers'
             }
           ]
         }
       ]
-      this.title = `ویرایش کویز {{title}}`
       this.loading = false
+      this.title = `ویرایش کویز {{title}}`
     } else {
+      this.loading = false
       this.title = 'ایجاد کویز جدید'
       this.formData = [
         {
@@ -91,6 +103,16 @@ export default class component_name extends Vue {
               validation: { required: true },
               placeholder: 'عکس کوییز را به فارسی وارد نمایید',
               model: 'image'
+            },
+            {
+              label: 'تاریخ ارسال',
+              validation: { required: true },
+              type: 'datePicker',
+              datePickerType: 'datetime',
+              // appendIcon: 'event',
+              format: 'jYYYY/jMM/jDD HH:mm',
+              placeholder: 'تاریخ ارسال را وارد نمایید',
+              model: 'send_time'
             },
             {
               component: quizAnswer,

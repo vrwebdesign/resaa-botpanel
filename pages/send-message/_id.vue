@@ -31,7 +31,6 @@ export default class SendMessageEdit extends Vue {
   }
   async mounted() {
     if (this.$route.params.id !== 'create') {
-      this.loading = true
       this.item = await this.$service.schedule_messages.$get(
         this.$route.params.id
       )
@@ -55,6 +54,21 @@ export default class SendMessageEdit extends Vue {
               model: 'text'
             },
             {
+              label: ' عکس ',
+              disabled: this.item.is_send == 1 ? true : false,
+              type: 'fileUpload',
+              placeholder: 'عکس  را وارد نمایید',
+              model: 'image'
+            },
+            {
+              label: 'ویدیو',
+              disabled: this.item.is_send == 1 ? true : false,
+              type: 'fileUpload',
+              fileType: 'video',
+              placeholder: 'ویدیو  را وارد نمایید',
+              model: 'video'
+            },
+            {
               label: 'تاریخ ارسال',
               validation: { required: true },
               disabled: this.item.is_send == 1 ? true : false,
@@ -71,6 +85,7 @@ export default class SendMessageEdit extends Vue {
       this.title = `ویرایش پیام {{title}}`
       this.loading = false
     } else {
+      this.loading = false
       this.title = 'ایجاد پیام جدید'
       this.formData = [
         {
@@ -88,6 +103,19 @@ export default class SendMessageEdit extends Vue {
               type: 'textArea',
               placeholder: 'متن پیغام را به فارسی وارد نمایید',
               model: 'text'
+            },
+            {
+              label: ' عکس ',
+              type: 'fileUpload',
+              placeholder: 'عکس  را وارد نمایید',
+              model: 'image'
+            },
+            {
+              label: 'ویدیو',
+              type: 'fileUpload',
+              fileType: 'video',
+              placeholder: 'ویدیو  را وارد نمایید',
+              model: 'video'
             },
             {
               label: 'تاریخ ارسال',

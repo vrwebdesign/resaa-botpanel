@@ -46,6 +46,11 @@ export default class NavigationService {
           to: '/application'
         },
         {
+          icon: 'la-city',
+          title: 'شهرها',
+          to: '/corona-cities'
+        },
+        {
           icon: 'la-vial',
           title: 'تست کرونا',
           to: '/corona-test'
@@ -89,6 +94,11 @@ export default class NavigationService {
       ]
     } else if (roles.includes('corona_admin')) {
       return [
+        {
+          icon: 'la-city',
+          title: 'شهرها',
+          to: '/corona-cities'
+        },
         {
           icon: 'la-vial',
           title: 'تست کرونا',

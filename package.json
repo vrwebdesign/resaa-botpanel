@@ -9,7 +9,8 @@
     "build": "nuxt-ts build",
     "start": "nuxt-ts start",
     "generate": "nuxt-ts generate",
-    "release": "git push dist master && git push dist develop"
+    "release": "git push origin master && git push origin develop",
+    "release:dist": "git push dist master && git push dist develop"
   },
   "dependencies": {
     "@nuxt/types": "^0.2.11",

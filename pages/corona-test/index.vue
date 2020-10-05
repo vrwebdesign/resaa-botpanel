@@ -25,35 +25,54 @@
           <td>{{ item.id }}</td>
           <td>{{ item.name }}</td>
           <td>{{ item.mobile }}</td>
+          <td>
+            <span v-if="item.city">
+              {{ item.city.name }}
+            </span>
+            <span v-else>-</span>
+          </td>
           <td>{{ item.nationalCode }}</td>
           <td>
             <vr-badge
-              :color="colors.corona_test[item.doctor_id]"
-            >{{item.doctor_id | enum('corona_test')}}</vr-badge>
+              :color="
+                colors.corona_test[item.doctor_id || item.selected_test.id]
+              "
+            >
+              <span>
+                {{item.doctor_id || item.selected_test.id | enum('corona_test')}}
+              </span>
+            </vr-badge>
           </td>
-          <td>{{item.amount | currency | persianDigit}} تومان</td>
+          <td>{{ item.amount | currency | persianDigit }} تومان</td>
           <td>
             <vr-badge
               :color="colors.corona_test_payment_status[item.payment_status]"
               type="dot"
-            >{{ item.payment_status | enum('corona_test_payment_status') }}</vr-badge>
+              >{{ item.payment_status | enum('corona_test_payment_status') }}</vr-badge
+            >
           </td>
           <td>
             <vr-badge
               :color="colors.corona_test_status[item.status]"
-            >{{ item.status | enum('corona_test_status') }}</vr-badge>
+              >{{ item.status | enum('corona_test_status') }}</vr-badge
+            >
           </td>
-          <td
-            class="text-xs-center"
-            dir="ltr"
-          >{{ item.created_at | persianDate('jYYYY-jMM-jDD HH:mm') | persianDigit }}</td>
+          <td class="text-xs-center" dir="ltr">
+            {{
+              item.created_at
+                | persianDate('jYYYY-jMM-jDD HH:mm')
+                | persianDigit
+            }}
+          </td>
         </template>
         <template #actions_right="{item}">
           <v-tooltip top>
             <template v-slot:activator="{ on }">
-              <v-icon v-on="on">{{item.description?"la-exclamation":"a"}}</v-icon>
+              <v-icon v-on="on">{{
+                item.description ? 'la-exclamation' : 'a'
+              }}</v-icon>
             </template>
-            <span>{{item.description}}</span>
+            <span>{{ item.description }}</span>
           </v-tooltip>
         </template>
       </vr-data-grid>
@@ -76,6 +95,12 @@ export default class CoronaTestPage extends Vue {
     { text: 'آیدی', align: 'right', value: 'id', width: '5%' },
     { text: 'نام کاربر', align: 'right', value: 'name', width: '10%' },
     { text: 'شماره کاربر', align: 'right', value: 'mobile', width: '10%' },
+    {
+      text: 'شهر',
+      align: 'right',
+      sortable: false,
+      width: '10%'
+    },
     {
       text: 'کد ملی',
       align: 'right',
@@ -146,7 +171,11 @@ export default class CoronaTestPage extends Vue {
         },
         ...this.$enum.corona_test_payment_status.toSelect
       ]
-    }
+    },
+    {
+      label: 'شهر',
+      model: 'city.name'
+    },
   ]
   colors = colors
   get ExportExcel() {

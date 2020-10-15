@@ -6,15 +6,15 @@
       <vr-data-grid
         :headers="headers"
         :title="title"
-        :service="$service.corona_city"
+        :service="$service.corona_transactions"
         :filters="filters"
         :withRecycle="true"
         :syncUrl="true"
       >
         <template #items="{item}">
           <td>{{ item.id }}</td>
-          <td>{{ item.name }}</td>
-          <td>{{ item.sort_order | persianDigit }}</td>
+          <td>{{ item.amount | currency | persianDigit }} تومان</td>
+          <td>{{ item.status | enum('corona_transaction_status') }}</td>
           <td class="text-xs-right" dir="ltr">
             {{
               item.created_at
@@ -46,12 +46,20 @@ Component.registerHooks(['meta'])
 })
 export default class CoronaTestPage extends Vue {
   title = {
-    text: 'شهر ها',
-    icon: 'la-city'
+    text: 'تراکنش های تست کرونا',
+    icon: 'la-money-bill'
   }
   headers = [
     { text: 'آیدی', align: 'right', value: 'id', width: '5%' },
-    { text: 'نام شهر', align: 'right', value: 'name', width: '10%' },
+    { text: 'نام شهر', align: 'right', sortable: false, width: '10%' },
+    { text: 'نام تست', align: 'right', value: 'name', width: '10%' },
+    { text: 'قیمت کل', align: 'right', value: 'total_amount', width: '10%' },
+    {
+      text: 'پیش پرداخت',
+      align: 'right',
+      value: 'prepay_maount',
+      width: '10%'
+    },
     { text: 'اولویت', align: 'right', value: 'sort_order', width: '10%' },
     {
       text: 'تاریخ ایجاد',
@@ -66,14 +74,17 @@ export default class CoronaTestPage extends Vue {
       model: 'id:='
     },
     {
-      label: 'نام شهر',
+      label: 'نام تست',
       model: 'name'
+    },
+    {
+      label: 'نام شهر',
+      model: 'city.name'
     }
   ]
   get meta() {
     return { roles: ['administrator', 'corona_admin'] }
   }
-
 }
 </script>
 

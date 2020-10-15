@@ -6,7 +6,7 @@
       <vr-data-grid
         :headers="headers"
         :title="title"
-        :editUrl="'/corona-test/:id'"
+        :editUrl="'/corona-old-orders/:id'"
         :filters="filters"
         :withAdd="false"
         :queryService="queryService"
@@ -32,8 +32,8 @@
           </td>
           <td>
             <vr-badge
-              :color="colors.corona_test_status[item.status]"
-            >{{ item.status | enum('corona_test_status') }}</vr-badge>
+              :color="colors.corona_transaction_status[item.status]"
+            >{{ item.status | enum('corona_transaction_status') }}</vr-badge>
           </td>
           <td class="text-xs-center" dir="ltr">
             <vr-badge :color="calc_color(item)">{{ calc_hour(item) }}</vr-badge>
@@ -62,8 +62,8 @@ Component.registerHooks(['meta'])
 })
 export default class CoronaFlowPage extends Vue {
   title = {
-    text: 'پیگیری های تست کرونا',
-    icon: 'la-vial'
+    text: 'پیگیری های سفارش کرونا',
+    icon: 'la-shopping-basket'
   }
   headers = [
     { text: 'آیدی', align: 'right', value: 'id', width: '5%' },
@@ -122,7 +122,7 @@ export default class CoronaFlowPage extends Vue {
     return { roles: ['administrator', 'corona_admin'] }
   }
   queryService(params) {
-    return this.$service.corona_test.flow(params)
+    return this.$service.corona_old_orders.flow(params)
   }
   calc_color(item) {
     let hour = this.calc_difs(item)

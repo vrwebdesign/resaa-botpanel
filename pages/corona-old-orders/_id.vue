@@ -7,7 +7,7 @@
       :loading="loading"
       :item="item"
       :formData="formData"
-      :service="$service.corona_test"
+      :service="$service.corona_old_orders"
     ></vr-form-generator>
   </section>
 </template>
@@ -40,19 +40,14 @@ export default class CoronaTestDetailPage extends Vue {
     if (this.$route.params.id == 'create') {
       this.title = `افزودن درخواست تست کرونا جدید`
     } else {
-      this.item = await this.$service.corona_test.$get(this.$route.params.id)
+      this.item = await this.$service.corona_old_orders.$get(this.$route.params.id)
+      this.item.test_name = this.item.selected_test.name
       this.title = `ویرایش درخواست تست کرونا {{name}} {{mobile}}`
       let city = this.cities.find(item => item.id == this.item.city_id)
       if (city) {
         this.testsItems = city.testsItems
       }
     }
-    // let citiesItems = data.map(item => {
-    //   return {
-    //     text: item.name,
-    //     value: item.id
-    //   }
-    // })
     this.loading = false
     this.formData = [
       {
@@ -78,13 +73,10 @@ export default class CoronaTestDetailPage extends Vue {
           },
           {
             label: 'نوع تست',
-            type: 'select',
-            validation: { required: true },
-            returnObject: true,
-            select_text: 'name',
-            items: this.testsItems,
+            type: 'textField',
+            hide:!this.item.test_name,
             placeholder: 'نوع تست ',
-            model: 'selected_test'
+            model: 'test_name'
           },
           {
             label: 'نام و نام خانوادگی',
@@ -156,7 +148,7 @@ export default class CoronaTestDetailPage extends Vue {
             label: 'وضعیت پرداخت',
             type: 'select',
             validation: { required: true },
-            items: this.$enum.corona_test_payment_status.toSelect,
+            items: this.$enum.corona_transaction_status.toSelect,
             placeholder: 'وضعیت پرداخت ',
             model: 'payment_status'
           },

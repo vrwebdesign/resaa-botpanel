@@ -47,13 +47,28 @@ export default class NavigationService {
         },
         {
           icon: 'la-city',
-          title: 'شهرها',
+          title: 'شهرهای کرونا',
           to: '/corona-cities'
         },
         {
           icon: 'la-vial',
-          title: 'تست کرونا',
-          to: '/corona-test'
+          title: 'تست های کرونا',
+          to: '/corona-tests'
+        },
+        {
+          icon: 'la-money-bill',
+          title: 'تراکنش های کرونا',
+          to: '/corona-transactions'
+        },
+        {
+          icon: 'la-shopping-basket',
+          title: 'سفارش های تست کرونا',
+          to: '/corona-orders'
+        },
+        {
+          icon: 'la-shopping-basket',
+          title: 'سفارش های قدیمی',
+          to: '/corona-old-orders'
         }
       ]
     } else if (roles.includes('bot_admin')) {
@@ -101,8 +116,23 @@ export default class NavigationService {
         },
         {
           icon: 'la-vial',
-          title: 'تست کرونا',
-          to: '/corona-test'
+          title: 'تست های',
+          to: '/corona-tests'
+        },
+        {
+          icon: 'la-money-bill',
+          title: 'تراکنش های',
+          to: '/corona-transactions'
+        },
+        {
+          icon: 'la-shopping-basket',
+          title: 'سفارش های تست',
+          to: '/corona-orders'
+        },
+        {
+          icon: 'la-shopping-basket',
+          title: 'سفارش های قدیمی',
+          to: '/corona-old-orders'
         },
         {
           icon: 'la-image',

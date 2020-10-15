@@ -6,13 +6,13 @@
       <vr-data-grid
         :headers="headers"
         :title="title"
-        :service="$service.corona_test"
+        :service="$service.corona_orders"
         :filters="filters"
         :withRecycle="true"
         :syncUrl="true"
       >
         <template #toollbar_left>
-          <v-btn color="pink" round outline to="/corona-test-flow">
+          <v-btn color="pink" round outline to="/corona-orders-flow">
             <v-icon class="ml-2">la-history</v-icon>
             <span>پیگیری</span>
           </v-btn>
@@ -23,37 +23,35 @@
         </template>
         <template #items="{item}">
           <td>{{ item.id }}</td>
-          <td>{{ item.name }}</td>
-          <td>{{ item.mobile }}</td>
+          <td>{{ item.user_fullname }}</td>
+          <td>{{ item.user_mobile | persianDigit }}</td>
           <td>
             <span v-if="item.city">
               {{ item.city.name }}
             </span>
             <span v-else>-</span>
           </td>
-          <td>{{ item.nationalCode }}</td>
+          <td>{{ item.user_nationalcode | persianDigit}}</td>
           <td>
-            <vr-badge
-              :color="
-                colors.corona_test[item.doctor_id || item.selected_test.id]
-              "
-            >
+            <vr-badge :color="item.test.color">
               <span>
-                {{item.doctor_id || item.selected_test.id | enum('corona_test')}}
+                {{ item.test.name }}
               </span>
             </vr-badge>
           </td>
-          <td>{{ item.amount | currency | persianDigit }} تومان</td>
+          <td>{{ item.prepay_amount | currency | persianDigit }} تومان</td>
           <td>
             <vr-badge
-              :color="colors.corona_test_payment_status[item.payment_status]"
+              :color="
+                colors.corona_transaction_status[item.transaction.status]
+              "
               type="dot"
-              >{{ item.payment_status | enum('corona_test_payment_status') }}</vr-badge
+              >{{ item.transaction.status | enum('corona_transaction_status') }}</vr-badge
             >
           </td>
           <td>
             <vr-badge
-              :color="colors.corona_test_status[item.status]"
+              :color="colors.corona_transaction_status[item.status]"
               >{{ item.status | enum('corona_test_status') }}</vr-badge
             >
           </td>
@@ -93,8 +91,8 @@ export default class CoronaTestPage extends Vue {
   }
   headers = [
     { text: 'آیدی', align: 'right', value: 'id', width: '5%' },
-    { text: 'نام کاربر', align: 'right', value: 'name', width: '10%' },
-    { text: 'شماره کاربر', align: 'right', value: 'mobile', width: '10%' },
+    { text: 'نام کاربر', align: 'right', value: 'user_fullname', width: '10%' },
+    { text: 'شماره کاربر', align: 'right', value: 'user_mobile', width: '10%' },
     {
       text: 'شهر',
       align: 'right',
@@ -104,15 +102,15 @@ export default class CoronaTestPage extends Vue {
     {
       text: 'کد ملی',
       align: 'right',
-      value: 'phoneNumber',
+      value: 'user_nationalcode',
       width: '10%'
     },
-    { text: 'نوع تست', align: 'right', value: 'doctor_id', width: '10%' },
-    { text: 'قیمت', align: 'right', value: 'amount', width: '10%' },
+    { text: 'نوع تست', align: 'right', sortable: false, width: '10%' },
+    { text: 'قیمت', align: 'right', value: 'prepay_amount', width: '10%' },
     {
       text: 'وضعیت پرداخت',
       align: 'right',
-      value: 'payment_status',
+      sortable: false,
       width: '10%'
     },
     { text: 'وضعیت', align: 'right', value: 'status', width: '10%' },
@@ -130,23 +128,19 @@ export default class CoronaTestPage extends Vue {
     },
     {
       label: 'نام کاربر',
-      model: 'name'
+      model: 'user_fullname'
     },
     {
       label: 'شماره همراه کاربر',
-      model: 'mobile'
-    },
-    {
-      label: 'شماره همراه کاربر رسا ',
-      model: 'phoneNumber'
+      model: 'user_mobile'
     },
     {
       label: 'کد پیگیری درگاه ',
-      model: 'trackingNumber'
+      model: 'transaction.tracking_code'
     },
     {
       label: 'کد ملی ',
-      model: 'nationalCode'
+      model: 'user_nationalcode'
     },
     {
       label: 'وضعیت',
@@ -162,32 +156,32 @@ export default class CoronaTestPage extends Vue {
     },
     {
       label: 'وضعیت پرداخت',
-      model: 'payment_status:=',
+      model: 'transaction.status:=',
       type: 'select',
       items: [
         {
           text: 'همه',
           value: null
         },
-        ...this.$enum.corona_test_payment_status.toSelect
+        ...this.$enum.corona_transaction_status.toSelect
       ]
     },
     {
       label: 'شهر',
       model: 'city.name'
-    },
+    }
   ]
   colors = colors
   get ExportExcel() {
     let token = this.$store.getters['auth/token']
-    let url = `${window.location.origin}/api/admin/corona_test/exportExcel?token=${token}`
+    let url = `${window.location.origin}/api/admin/corona-orders/exportExcel?token=${token}`
     return url
   }
   get meta() {
     return { roles: ['administrator', 'corona_admin'] }
   }
   exportExcel() {
-    this.$service.corona_test.exportExcel()
+    this.$service.corona_orders.exportExcel()
   }
 }
 </script>

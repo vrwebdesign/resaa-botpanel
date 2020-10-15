@@ -57,68 +57,21 @@
                   placeholder="نام شهر را وارد نمایید"
                 ></v-text-field>
               </div>
+              <div class="form-group">
+                <label >اولویت</label>
+                <v-text-field
+                  outline
+                  v-validate="'number'"
+                  :error-messages="errors.collect('sort_order')"
+                  data-vv-as="اولویت"
+                  name="sort_order"
+                  v-model="item.sort_order"
+                  placeholder="اولویت نمایش را مشخص کنید"
+                ></v-text-field>
+              </div>
             </section>
           </v-flex>
           <v-flex lg2></v-flex>
-        </v-layout>
-        <v-layout row wrap class="box-wrapper">
-          <v-flex xs4 v-for="(test, index) in item.testsItems" :key="index">
-            <div class="box">
-              <div class="box-header">
-                {{ test.name }}
-              </div>
-              <section class="form-section">
-                <div class="form-group">
-                  <label class="required">مبلغ کل</label>
-                  <v-text-field
-                    outline
-                    v-validate="{ required: true, number: true }"
-                    :error-messages="errors.collect(`${test.name}-price`)"
-                    data-vv-as="مبلغ کل"
-                    :name="`${test.name}-price`"
-                    v-model="test.price"
-                    placeholder="مبلغ کل را وارد نمایید"
-                  ></v-text-field>
-                </div>
-                <div class="form-group">
-                  <label class="required">مبلغ پیش پرداخت</label>
-                  <v-text-field
-                    outline
-                    v-validate="{ required: true, number: true }"
-                    :error-messages="errors.collect(`${test.name}-prepayment`)"
-                    data-vv-as="مبلغ پیش پرداخت"
-                    :name="`${test.name}-prepayment`"
-                    v-model="test.prepayment"
-                    placeholder="مبلغ پیش پرداخت را وارد نمایید"
-                  ></v-text-field>
-                </div>
-                <div class="form-group">
-                  <label class="required">آیدی شارژ</label>
-                  <v-text-field
-                    outline
-                    v-validate="{ required: true, number: true }"
-                    :error-messages="errors.collect(`${test.name}-chargeId`)"
-                    data-vv-as="آیدی شارژ"
-                    :name="`${test.name}-chargeId`"
-                    v-model="test.chargeId"
-                    placeholder="آیدی شارژ را وارد نمایید"
-                  ></v-text-field>
-                </div>
-                <div class="form-group">
-                  <label class="required">آیدی پزشک</label>
-                  <v-text-field
-                    outline
-                    v-validate="{ required: true, number: true }"
-                    :error-messages="errors.collect(`${test.name}-doctorId`)"
-                    data-vv-as="آیدی پزشک"
-                    :name="`${test.name}-doctorId`"
-                    v-model="test.doctorId"
-                    placeholder="آیدی پزشک وارد نمایید"
-                  ></v-text-field>
-                </div>
-              </section>
-            </div>
-          </v-flex>
         </v-layout>
       </div>
     </div>
@@ -137,34 +90,7 @@ export default class CoronaTestDetailPage extends Vue {
   date = null
   loading = true
   title = 'افزودن شهر جدید'
-  item = <any>{
-    testsItems: [
-      {
-        id:'antybody',
-        name: 'تست آنتی بادی',
-        price: null,
-        prepayment: null,
-        chargeId: null,
-        doctorId: null
-      },
-      {
-        id:'pcr',
-        name: 'تست PCR',
-        price: null,
-        prepayment: null,
-        chargeId: null,
-        doctorId: null
-      },
-      {
-        id:'both',
-        name: 'تست آنتی بادی و تست PCR',
-        price: null,
-        prepayment: null,
-        chargeId: null,
-        doctorId: null
-      }
-    ]
-  }
+  item: any = {}
   get meta() {
     return { roles: ['administrator', 'corona_admin'] }
   }

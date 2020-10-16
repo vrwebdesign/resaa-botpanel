@@ -13,7 +13,7 @@
         :withAdd="false"
       >
         <template #items="{item}">
-          <td>{{ item.id }}</td>
+          <td>{{ item.id | persianDigit }}</td>
           <td>
             <span v-if="item.user">{{ item.user.phone }}</span>
             <span v-else></span>

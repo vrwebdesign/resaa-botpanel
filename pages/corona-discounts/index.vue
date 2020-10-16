@@ -6,20 +6,16 @@
       <vr-data-grid
         :headers="headers"
         :title="title"
-        :service="$service.corona_transactions"
+        :service="$service.corona_discounts"
         :filters="filters"
         :withRecycle="true"
         :syncUrl="true"
       >
         <template #items="{item}">
           <td>{{ item.id | persianDigit }}</td>
+          <td>{{ item.name }}</td>
           <td>{{ item.amount | currency | persianDigit }} تومان</td>
-          <td>
-            <vr-badge :color="colors.corona_transaction_status[item.status]">
-              {{ item.status | enum('corona_transaction_status') }}
-            </vr-badge>
-          </td>
-          <td>{{ item.tracking_code }}</td>
+          <td>{{ item.code }}</td>
           <td class="text-xs-right" dir="ltr">
             {{
               item.created_at
@@ -51,15 +47,14 @@ Component.registerHooks(['meta'])
 })
 export default class CoronaTestPage extends Vue {
   title = {
-    text: 'تراکنش های تست کرونا',
-    icon: 'la-money-bill'
+    text: 'کوپن های تست کرونا',
+    icon: 'la-tag'
   }
   headers = [
     { text: 'آیدی', align: 'right', value: 'id', width: '5%' },
-    { text: 'قیمت', align: 'right', value: 'amount', width: '10%' },
-
-    { text: 'وضعیت', align: 'right', value: 'status', width: '10%' },
-    { text: 'کد پیگیری', align: 'right', value: 'tracking_code', width: '10%' },
+    { text: 'نام', align: 'right', value: 'name', width: '10%' },
+    { text: 'مبلغ تخفیف', align: 'right', value: 'amount', width: '10%' },
+    { text: 'کد', align: 'right', value: 'code', width: '10%' },
     {
       text: 'تاریخ ایجاد',
       align: 'right',
@@ -73,13 +68,12 @@ export default class CoronaTestPage extends Vue {
       model: 'id:='
     },
     {
-      label: 'وضعیت',
-      type: 'select',
-      items: [
-        { text: 'همه', value: null },
-        ...this.$enum.corona_transaction_status.toSelect
-      ],
-      model: 'status'
+      label: 'نام',
+      model: 'name'
+    },
+    {
+      label: 'کد',
+      model: 'code'
     }
   ]
   colors = colors

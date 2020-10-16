@@ -22,7 +22,7 @@
           </v-btn>
         </template>
         <template #items="{item}">
-          <td>{{ item.id }}</td>
+          <td>{{ item.id | persianDigit }}</td>
           <td>{{ item.name }}</td>
           <td>{{ item.mobile }}</td>
           <td>

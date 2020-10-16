@@ -22,7 +22,7 @@
           </v-btn>
         </template>
         <template #items="{item}">
-          <td>{{ item.id }}</td>
+          <td>{{ item.id | persianDigit }}</td>
           <td>{{ item.user_fullname }}</td>
           <td>{{ item.user_mobile | persianDigit }}</td>
           <td>
@@ -31,7 +31,7 @@
             </span>
             <span v-else>-</span>
           </td>
-          <td>{{ item.user_nationalcode | persianDigit}}</td>
+          <td>{{ item.user_nationalcode | persianDigit }}</td>
           <td>
             <vr-badge :color="item.test.color">
               <span>
@@ -41,13 +41,16 @@
           </td>
           <td>{{ item.prepay_amount | currency | persianDigit }} تومان</td>
           <td>
-            <vr-badge
-              :color="
-                colors.corona_transaction_status[item.transaction.status]
-              "
-              type="dot"
-              >{{ item.transaction.status | enum('corona_transaction_status') }}</vr-badge
-            >
+            <span v-if="item.transaction">
+              <vr-badge
+                :color="
+                  colors.corona_transaction_status[item.transaction.status]
+                "
+                type="dot"
+                >{{ item.transaction.status | enum('corona_transaction_status') }}</vr-badge
+              >
+            </span>
+            <span v-else>-</span>
           </td>
           <td>
             <vr-badge

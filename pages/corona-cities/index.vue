@@ -12,7 +12,7 @@
         :syncUrl="true"
       >
         <template #items="{item}">
-          <td>{{ item.id }}</td>
+          <td>{{ item.id | persianDigit }}</td>
           <td>{{ item.name }}</td>
           <td>{{ item.sort_order | persianDigit }}</td>
           <td class="text-xs-right" dir="ltr">

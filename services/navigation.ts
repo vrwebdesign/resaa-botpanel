@@ -51,6 +51,11 @@ export default class NavigationService {
           to: '/corona-cities'
         },
         {
+          icon: 'la-tag',
+          title: 'کوپن های کرونا',
+          to: '/corona-discounts'
+        },
+        {
           icon: 'la-vial',
           title: 'تست های کرونا',
           to: '/corona-tests'
@@ -113,6 +118,11 @@ export default class NavigationService {
           icon: 'la-city',
           title: 'شهرها',
           to: '/corona-cities'
+        },
+        {
+          icon: 'la-tag',
+          title: 'کوپن ها',
+          to: '/corona-discounts'
         },
         {
           icon: 'la-vial',

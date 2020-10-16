@@ -14,9 +14,8 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Emit, Ref } from 'vue-property-decorator'
 import { VRFormData } from 'vrwebdesign-nuxt/modules/nuxt-form-generator'
-import quizAnswer from '@/components/quiz/quizAnswer.vue'
 import { ICoronaCity } from '~/models/corona_city'
-
+import DiscountRole from '@/components/corona/discountRole.vue'
 Component.registerHooks(['meta'])
 @Component({
   middleware: 'authorization'
@@ -71,6 +70,13 @@ export default class CoronaTestDetailPage extends Vue {
             model: 'color'
           },
           {
+            label: 'اولویت',
+            type: 'textField',
+            validation: { number: true },
+            placeholder: 'اولویت را وارد نمایید',
+            model: 'sort_order'
+          },
+          {
             label: 'شهر',
             type: 'select',
             validation: { required: true },
@@ -102,6 +108,11 @@ export default class CoronaTestDetailPage extends Vue {
             type: 'textArea',
             placeholder: 'توضیحات ',
             model: 'description'
+          },
+          {
+            label:'تخفیف روی تعداد',
+            component:DiscountRole,
+            model:'discount_roles'
           }
         ]
       }

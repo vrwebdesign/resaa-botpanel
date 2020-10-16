@@ -12,7 +12,7 @@
         :syncUrl="true"
       >
         <template #items="{item}">
-          <td>{{ item.id }}</td>
+          <td>{{ item.id | persianDigit }}</td>
           <td>{{ item.city.name }}</td>
           <td>{{ item.name }}</td>
           <td>{{ item.total_amount | currency | persianDigit }} تومان</td>

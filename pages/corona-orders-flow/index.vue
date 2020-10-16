@@ -14,7 +14,7 @@
         :syncUrl="true"
       >
         <template #items="{item}">
-          <td>{{ item.id }}</td>
+          <td>{{ item.id | persianDigit }}</td>
           <td>{{ item.user_fullname }}</td>
           <td>{{ item.user_mobile | persianDigit }}</td>
           <td>

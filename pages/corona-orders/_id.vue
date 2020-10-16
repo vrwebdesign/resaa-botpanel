@@ -6,6 +6,7 @@
       :title="title"
       :loading="loading"
       :item="item"
+      :beforeSave="beforeSave"
       :formData="formData"
       :service="$service.corona_orders"
     ></vr-form-generator>
@@ -31,16 +32,28 @@ export default class CoronaTestDetailPage extends Vue {
   }
   testsItems: any = []
   cities: ICoronaCity[] = []
+  discounts: any[] = []
   get meta() {
     return { roles: ['administrator', 'corona_admin'] }
   }
   async mounted() {
-    let { data } = await this.$service.corona_city.$query({ perPage: 1000 })
-    this.cities = data
+    let { data: cities } = await this.$service.corona_city.$query({
+      perPage: 1000
+    })
+    this.cities = cities
+    let { data: discounts }: any = await this.$service.corona_discounts.$query({
+      perPage: 1000
+    })
+    this.discounts = discounts
+
     if (this.$route.params.id == 'create') {
       this.title = `افزودن درخواست تست کرونا جدید`
     } else {
       this.item = await this.$service.corona_orders.$get(this.$route.params.id)
+      this.item.selected_discount = this.item.discount
+        ? `${this.item.discount.name} ${this.item.discount.amount}`
+        : null
+      this.item.test_name = this.item.selected_test.name
       this.title = `ویرایش درخواست تست کرونا {{user_fullname}} {{user_mobile}}`
       let city = this.cities.find(item => item.id == this.item.city_id)
       if (city) {
@@ -75,20 +88,50 @@ export default class CoronaTestDetailPage extends Vue {
             validation: { required: true },
             items: this.cities,
             select_text: 'name',
+            disabled: Boolean(this.$route.params.id != 'create'),
             select_value: 'id',
             placeholder: 'شهر ',
             model: 'city_id',
             onChange: this.onCityChange
           },
           {
+            label: 'تخفیف',
+            type: 'select',
+            hide: Boolean(this.$route.params.id != 'create'),
+            items: this.discounts.map(item => {
+              return {
+                text: `${item.name} ${item.amount}`,
+                value: item.id
+              }
+            }),
+            placeholder: 'تخفیف ',
+            model: 'discount_id'
+          },
+          {
             label: 'نوع تست',
             type: 'select',
+            hide: Boolean(this.$route.params.id != 'create'),
             validation: { required: true },
             select_text: 'name',
-            select_value:'id',
+            select_value: 'id',
             items: this.testsItems,
             placeholder: 'نوع تست ',
             model: 'test_id'
+          },
+          {
+            label: 'تخفیف',
+            type: 'textField',
+            disabled:true,
+            hide: Boolean(this.$route.params.id == 'create'),
+            model: 'selected_discount'
+          },
+          {
+            label: 'نوع تست',
+            type: 'textField',
+            disabled:true,
+            hide: Boolean(this.$route.params.id == 'create'),
+            validation: { required: true },
+            model: 'test_name'
           },
           {
             label: 'نام و نام خانوادگی',
@@ -123,6 +166,7 @@ export default class CoronaTestDetailPage extends Vue {
             type: 'currency',
             validation: { required: true },
             placeholder: 'مبلغ کل را به تومان وارد نمایید',
+            disabled: Boolean(this.$route.params.id != 'create'),
             suffix: 'تومان',
             model: 'total_amount'
           },
@@ -131,6 +175,7 @@ export default class CoronaTestDetailPage extends Vue {
             type: 'currency',
             validation: { required: true },
             placeholder: 'مبلغ پیش پرداخت را به تومان وارد نمایید',
+            disabled: Boolean(this.$route.params.id != 'create'),
             suffix: 'تومان',
             model: 'prepay_amount'
           },
@@ -143,6 +188,15 @@ export default class CoronaTestDetailPage extends Vue {
         ]
       }
     ]
+  }
+  async beforeSave(item) {
+    item.selected_test = this.testsItems.find(
+      testItem => testItem.id == item.test_id
+    )
+    item.discount = this.discounts.find(
+      discount => discount.id == item.discount_id
+    )
+    return item
   }
   getCities(val) {
     if (val && val != '') {
@@ -179,10 +233,15 @@ export default class CoronaTestDetailPage extends Vue {
         })
     }
   }
-  onCityChange(val) {
+  async onCityChange(val) {
     let city = this.cities.find(item => item.id == val)
     if (city) {
-      this.formData[0].rows[2].items = city.testsItems
+      let { data } = await this.$service.corona_tests.$query({
+        perPage: 1000,
+        filters: `["city.id:${city.id}:="]`
+      })
+      this.testsItems = data
+      this.formData[0].rows[3].items = data
     }
   }
 }

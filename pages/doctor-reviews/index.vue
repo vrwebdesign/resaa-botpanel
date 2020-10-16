@@ -11,7 +11,7 @@
         :withRecycle="true"
       >
         <template #items="{item}">
-          <td>{{ item.id }}</td>
+          <td>{{ item.id | persianDigit }}</td>
           <td>{{ item.doctor_subscriber }}</td>
           <td>{{item.owner_name}}</td>
           <td>{{ item.text }}</td>

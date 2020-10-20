@@ -38,11 +38,6 @@ export default class NavigationService {
         icon: 'la-shopping-basket',
         title: 'سفارش های قدیمی',
         to: '/corona-old-orders'
-      },
-      {
-        icon: 'la-image',
-        title: 'جواب آزمایش',
-        to: '/test-answer'
       }
     ]
     if (roles.includes('administrator')) {
@@ -88,6 +83,11 @@ export default class NavigationService {
           to: '/application'
         },
         {
+          icon: 'la-image',
+          title: 'جواب آزمایش',
+          to: '/test-answer'
+        },
+        {
           icon: 'la-vial',
           title: 'کرونا',
           child: corona_navs
@@ -130,7 +130,14 @@ export default class NavigationService {
         }
       ]
     } else if (roles.includes('corona_admin')) {
-      return corona_navs
+      return [
+        {
+          icon: 'la-image',
+          title: 'جواب آزمایش',
+          to: '/test-answer'
+        },
+        ...corona_navs
+      ]
     }
     return []
   }

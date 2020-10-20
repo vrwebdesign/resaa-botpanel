@@ -3,6 +3,48 @@ import { INav } from '~/models/Navigation'
 export default class NavigationService {
   constructor(public $axios: NuxtAxiosInstance) {}
   get(roles: string[]): INav[] {
+    let corona_navs = [
+      {
+        icon: 'la-city',
+        title: 'شهرها',
+        to: '/corona-cities'
+      },
+      {
+        icon: 'la-sync',
+        title: 'ریتارگتینگ',
+        to: '/corona-retarget'
+      },
+      {
+        icon: 'la-tag',
+        title: 'کوپن ها',
+        to: '/corona-discounts'
+      },
+      {
+        icon: 'la-vial',
+        title: 'تست های',
+        to: '/corona-tests'
+      },
+      {
+        icon: 'la-money-bill',
+        title: 'تراکنش های',
+        to: '/corona-transactions'
+      },
+      {
+        icon: 'la-shopping-basket',
+        title: 'سفارش های تست',
+        to: '/corona-orders'
+      },
+      {
+        icon: 'la-shopping-basket',
+        title: 'سفارش های قدیمی',
+        to: '/corona-old-orders'
+      },
+      {
+        icon: 'la-image',
+        title: 'جواب آزمایش',
+        to: '/test-answer'
+      }
+    ]
     if (roles.includes('administrator')) {
       return [
         {
@@ -46,34 +88,9 @@ export default class NavigationService {
           to: '/application'
         },
         {
-          icon: 'la-city',
-          title: 'شهرهای کرونا',
-          to: '/corona-cities'
-        },
-        {
-          icon: 'la-tag',
-          title: 'کوپن های کرونا',
-          to: '/corona-discounts'
-        },
-        {
           icon: 'la-vial',
-          title: 'تست های کرونا',
-          to: '/corona-tests'
-        },
-        {
-          icon: 'la-money-bill',
-          title: 'تراکنش های کرونا',
-          to: '/corona-transactions'
-        },
-        {
-          icon: 'la-shopping-basket',
-          title: 'سفارش های تست کرونا',
-          to: '/corona-orders'
-        },
-        {
-          icon: 'la-shopping-basket',
-          title: 'سفارش های قدیمی',
-          to: '/corona-old-orders'
+          title: 'کرونا',
+          child: corona_navs
         }
       ]
     } else if (roles.includes('bot_admin')) {
@@ -113,43 +130,7 @@ export default class NavigationService {
         }
       ]
     } else if (roles.includes('corona_admin')) {
-      return [
-        {
-          icon: 'la-city',
-          title: 'شهرها',
-          to: '/corona-cities'
-        },
-        {
-          icon: 'la-tag',
-          title: 'کوپن ها',
-          to: '/corona-discounts'
-        },
-        {
-          icon: 'la-vial',
-          title: 'تست های',
-          to: '/corona-tests'
-        },
-        {
-          icon: 'la-money-bill',
-          title: 'تراکنش های',
-          to: '/corona-transactions'
-        },
-        {
-          icon: 'la-shopping-basket',
-          title: 'سفارش های تست',
-          to: '/corona-orders'
-        },
-        {
-          icon: 'la-shopping-basket',
-          title: 'سفارش های قدیمی',
-          to: '/corona-old-orders'
-        },
-        {
-          icon: 'la-image',
-          title: 'جواب آزمایش',
-          to: '/test-answer'
-        }
-      ]
+      return corona_navs
     }
     return []
   }

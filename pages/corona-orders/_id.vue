@@ -119,16 +119,23 @@ export default class CoronaTestDetailPage extends Vue {
             model: 'test_id'
           },
           {
+            label: 'تعداد',
+            type: 'textField',
+            validation: { required: true, min_value: 1 },
+            disabled: Boolean(this.$route.params.id !== 'create'),
+            model: 'count'
+          },
+          {
             label: 'تخفیف',
             type: 'textField',
-            disabled:true,
+            disabled: true,
             hide: Boolean(this.$route.params.id == 'create'),
             model: 'selected_discount'
           },
           {
             label: 'نوع تست',
             type: 'textField',
-            disabled:true,
+            disabled: true,
             hide: Boolean(this.$route.params.id == 'create'),
             validation: { required: true },
             model: 'test_name'
@@ -162,6 +169,15 @@ export default class CoronaTestDetailPage extends Vue {
             model: 'user_address'
           },
           {
+            label: 'مبلغ پیش پرداخت',
+            type: 'currency',
+            validation: { required: true },
+            placeholder: 'مبلغ پیش پرداخت را به تومان وارد نمایید',
+            disabled: Boolean(this.$route.params.id != 'create'),
+            suffix: 'تومان',
+            model: 'prepay_amount'
+          },
+          {
             label: 'مبلغ کل',
             type: 'currency',
             validation: { required: true },
@@ -171,13 +187,22 @@ export default class CoronaTestDetailPage extends Vue {
             model: 'total_amount'
           },
           {
-            label: 'مبلغ پیش پرداخت',
+            label: 'مبلغ نهایی',
             type: 'currency',
             validation: { required: true },
-            placeholder: 'مبلغ پیش پرداخت را به تومان وارد نمایید',
+            placeholder: 'مبلغ نهایی را به تومان وارد نمایید',
             disabled: Boolean(this.$route.params.id != 'create'),
             suffix: 'تومان',
-            model: 'prepay_amount'
+            model: 'payable_amount'
+          },
+          {
+            label: 'تخفیف خرید گروهی',
+            type: 'currency',
+            validation: { required: true },
+            placeholder: 'تخفیف خرید گروهی را به تومان وارد نمایید',
+            disabled: Boolean(this.$route.params.id != 'create'),
+            suffix: 'تومان',
+            model: 'role_discount_amount'
           },
           {
             label: 'توضیحات',

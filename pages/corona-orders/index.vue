@@ -39,7 +39,38 @@
               </span>
             </vr-badge>
           </td>
+          <td>{{ item.count | persianDigit }}</td>
           <td>{{ item.prepay_amount | currency | persianDigit }} تومان</td>
+          <td>{{ item.payable_amount | currency | persianDigit }} تومان</td>
+          <td>
+            <span v-if="item.role_discount_amount">
+              <v-tooltip top>
+                <template v-slot:activator="{ on }">
+                  <span v-on="on"
+                    >{{
+                      item.role_discount_amount | currency | persianDigit
+                    }}
+                    تومان</span
+                  >
+                </template>
+                <span>تخفیف روی تعداد</span>
+              </v-tooltip>
+            </span>
+            <span v-if="item.discount">
+              <v-tooltip top>
+                <template v-slot:activator="{ on }">
+                  <span v-on="on"
+                    >{{
+                      item.discount.amount | currency | persianDigit
+                    }}
+                    تومان</span
+                  >
+                </template>
+                <span>کد تخفیف {{ item.discount.code }}</span>
+              </v-tooltip>
+            </span>
+            <span v-if="!item.role_discount_amount && !item.discount">-</span>
+          </td>
           <td>
             <span v-if="item.transaction">
               <vr-badge
@@ -109,7 +140,25 @@ export default class CoronaTestPage extends Vue {
       width: '10%'
     },
     { text: 'نوع تست', align: 'right', sortable: false, width: '10%' },
-    { text: 'قیمت', align: 'right', value: 'prepay_amount', width: '10%' },
+    {
+      text: 'تعداد',
+      align: 'right',
+      value: 'count',
+      width: '10%'
+    },
+    {
+      text: 'پیش پرداخت',
+      align: 'right',
+      value: 'prepay_amount',
+      width: '10%'
+    },
+    {
+      text: 'باقیمانده',
+      align: 'right',
+      value: 'payable_amount',
+      width: '10%'
+    },
+    { text: 'تخفیف', align: 'right', sortable: false, width: '10%' },
     {
       text: 'وضعیت پرداخت',
       align: 'right',
@@ -188,4 +237,3 @@ export default class CoronaTestPage extends Vue {
   }
 }
 </script>
-

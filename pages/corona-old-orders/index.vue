@@ -175,13 +175,16 @@ export default class CoronaTestPage extends Vue {
     {
       label: 'شهر',
       model: 'city.name'
-    },
+    }
   ]
   colors = colors
   get ExportExcel() {
-     let filters = this.$route.query.filters
+    let filters = this.$route.query.filters
     let token = this.$store.getters['auth/token']
-    let url = `${window.location.origin}/api/admin/corona-old-orders/exportExcel?token=${token}&filters=${filters}`
+    let url = `${window.location.origin}/api/admin/corona-old-orders/exportExcel?token=${token}`
+    if (filters) {
+      url += `&filters=${filters}`
+    }
     return url
   }
   get meta() {
@@ -192,4 +195,3 @@ export default class CoronaTestPage extends Vue {
   }
 }
 </script>
-

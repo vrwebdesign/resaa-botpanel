@@ -79,7 +79,7 @@
           </td>
         </template>
         <template #actions_right="{item}">
-          <v-tooltip top>
+          <v-tooltip top v-if="item.description">
             <template v-slot:activator="{ on }">
               <v-icon v-on="on">{{
                 item.description ? 'la-exclamation' : 'a'

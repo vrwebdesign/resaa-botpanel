@@ -98,7 +98,7 @@
           </td>
         </template>
         <template #actions_right="{item}">
-          <v-tooltip top>
+          <v-tooltip top v-if="item.description">
             <template v-slot:activator="{ on }">
               <v-icon v-on="on">{{
                 item.description ? 'la-exclamation' : 'a'
@@ -225,8 +225,9 @@ export default class CoronaTestPage extends Vue {
   ]
   colors = colors
   get ExportExcel() {
+    let filters = this.$route.query.filters
     let token = this.$store.getters['auth/token']
-    let url = `${window.location.origin}/api/admin/corona-orders/exportExcel?token=${token}`
+    let url = `${window.location.origin}/api/admin/corona-orders/exportExcel?token=${token}&filters=${filters}`
     return url
   }
   get meta() {

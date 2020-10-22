@@ -10,7 +10,8 @@
     "start": "nuxt-ts start",
     "generate": "nuxt-ts generate",
     "release": "git push origin master && git push origin develop",
-    "release:dist": "git push dist master && git push dist develop"
+    "release:dist": "git push dist master && git push dist develop",
+    "release:tfs": "git push tfs develop"
   },
   "dependencies": {
     "@nuxt/types": "^0.2.11",

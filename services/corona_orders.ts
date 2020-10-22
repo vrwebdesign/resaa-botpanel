@@ -11,6 +11,11 @@ export default class CoronaTestService extends BaseService<ICoronaTest> {
   flow(params) {
     return this.$axios.$get(`${this.path}/flow`, { params })
   }
+  changeIsChecked(item) {
+    return this.$axios.$patch(`${this.path}/${item.id}/change-is-checked`, {
+      is_checked: item.is_checked
+    })
+  }
 }
 
 declare module 'vue/types/vue' {

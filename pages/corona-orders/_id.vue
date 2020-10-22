@@ -1,12 +1,12 @@
 <style lang="scss"></style>
 
 <template>
-  <section v-if="title">
+  <section v-if="title" ref="wrapper">
     <vr-form-generator
       :title="title"
       :loading="loading"
       :item="item"
-      :beforeSave="beforeSave"
+      :customSave="customSave"
       :formData="formData"
       :service="$service.corona_orders"
     ></vr-form-generator>
@@ -74,6 +74,12 @@ export default class CoronaTestDetailPage extends Vue {
     this.formData = [
       {
         rows: [
+          {
+            label: 'وضعیت چک لیست',
+            type: 'checkbox',
+            placeholder: 'وضعیت چک لیست',
+            model: 'is_checked'
+          },
           {
             label: 'وضعیت',
             type: 'select',
@@ -198,7 +204,6 @@ export default class CoronaTestDetailPage extends Vue {
           {
             label: 'تخفیف خرید گروهی',
             type: 'currency',
-            validation: { required: true },
             placeholder: 'تخفیف خرید گروهی را به تومان وارد نمایید',
             disabled: Boolean(this.$route.params.id != 'create'),
             suffix: 'تومان',
@@ -214,14 +219,23 @@ export default class CoronaTestDetailPage extends Vue {
       }
     ]
   }
-  async beforeSave(item) {
+  async customSave(item) {
+    debugger
     item.selected_test = this.testsItems.find(
       testItem => testItem.id == item.test_id
     )
     item.discount = this.discounts.find(
       discount => discount.id == item.discount_id
     )
-    return item
+    let loader = this.$loader.show(this.$refs.wrapper)
+    try {
+      let res = await this.$service.corona_orders.$update(item.id, item)
+      this.$toast.success().showSimple('با موفقیت ذخیره شد')
+    } catch (error) {
+      this.$toast.error().showSimple('خطایی رخ داده است')
+    }
+    loader.hide()
+    // return item
   }
   getCities(val) {
     if (val && val != '') {

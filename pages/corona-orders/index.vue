@@ -22,7 +22,18 @@
           </v-btn>
         </template>
         <template #items="{item}">
-          <td>{{ item.id | persianDigit }}</td>
+          <td>
+            <div class="d-flex align-center">
+              <v-checkbox
+                :disabled="item.loading"
+                @change="onCheckBoxChange(item)"
+                hide-details
+                :ripple="false"
+                v-model="item.is_checked"
+              ></v-checkbox>
+              {{ item.id | persianDigit }}
+            </div>
+          </td>
           <td>{{ item.user_fullname }}</td>
           <td>{{ item.user_mobile | persianDigit }}</td>
           <td>
@@ -85,7 +96,7 @@
           </td>
           <td>
             <vr-badge
-              :color="colors.corona_transaction_status[item.status]"
+              :color="colors.corona_test_status[item.status]"
               >{{ item.status | enum('corona_test_status') }}</vr-badge
             >
           </td>
@@ -228,7 +239,7 @@ export default class CoronaTestPage extends Vue {
     let filters = this.$route.query.filters
     let token = this.$store.getters['auth/token']
     let url = `${window.location.origin}/api/admin/corona-orders/exportExcel?token=${token}`
-    if(filters){
+    if (filters) {
       url += `&filters=${filters}`
     }
     return url
@@ -238,6 +249,17 @@ export default class CoronaTestPage extends Vue {
   }
   exportExcel() {
     this.$service.corona_orders.exportExcel()
+  }
+  async onCheckBoxChange(val) {
+    let loader = this.$loader.show(this.$refs.wrapper)
+    try {
+      await this.$service.corona_orders.changeIsChecked(val)
+      this.$toast.success().showSimple('با موفقیت تغییر کرد')
+    } catch (error) {
+      this.$toast.error().showSimple('خطایی رخ داده است')
+      val.is_checked = !val.is_checked
+    }
+    loader.hide()
   }
 }
 </script>

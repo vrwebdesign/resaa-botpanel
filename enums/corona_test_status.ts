@@ -20,6 +20,6 @@ export default coronaTestStatus
 
 declare module 'vue/types/vue' {
   interface NuxtEnumInstance {
-    corona_test_payment_status: CoronaTestStatus
+    corona_test_status: CoronaTestStatus
   }
 }

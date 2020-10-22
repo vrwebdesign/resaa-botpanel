@@ -1,5 +1,5 @@
 import { CoronaTest } from '~/enums/corona_test'
-import { coronaTestPaymentStatus } from '~/enums/corona_test_payment_status'
+import { coronaTestPaymentStatus } from '~/enums/corona_transaction_status'
 import { CoronaTestStatus } from '~/enums/corona_test_status'
 
 export interface ICoronaTest {

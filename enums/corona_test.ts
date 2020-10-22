@@ -7,7 +7,10 @@ export interface CoronaTest {
 const coronaTest = {
   2304: 'تست AntyBody',
   2305: 'تست PCR',
-  2306: 'PCR & AntyBody'
+  2306: 'PCR & AntyBody',
+  antybody: 'تست AntyBody',
+  pcr: 'تست PCR',
+  both: 'PCR & AntyBody'
 }
 export default coronaTest
 

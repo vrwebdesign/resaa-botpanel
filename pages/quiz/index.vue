@@ -22,7 +22,7 @@
           </v-tooltip>
         </template>
         <template #items="{item}">
-          <td>{{ item.id }}</td>
+          <td>{{ item.id | persianDigit }}</td>
           <!-- <td>
             <v-avatar size="75" color="grey" class="my-3">
               <img v-if="item.image" :src="item.image.replace('original','thumb')" alt="alt" />

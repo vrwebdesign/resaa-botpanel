@@ -6,7 +6,8 @@ export interface coronaTestPaymentStatus {
 const coronaTestPaymentStatus = {
   unpaid: 'پرداخت نشده',
   paid: 'پرداخت شده',
-  returned: 'بازگشت داده شده'
+  negotiated:'مذاکره شده',
+  returned: 'بازگشت داده شده',
 }
 export default coronaTestPaymentStatus
 

@@ -51,6 +51,24 @@
             </vr-badge>
           </td>
           <td>{{ item.count | persianDigit }}</td>
+          <td>
+            <span v-if="item.transaction">
+              <vr-badge
+                :color="
+                  colors.corona_transaction_status[item.transaction.status]
+                "
+                type="dot"
+                >{{ item.transaction.status | enum('corona_transaction_status') }}</vr-badge
+              >
+            </span>
+            <span v-else>-</span>
+          </td>
+          <td>
+            <vr-badge
+              :color="colors.corona_test_status[item.status]"
+              >{{ item.status | enum('corona_test_status') }}</vr-badge
+            >
+          </td>
           <td>{{ item.prepay_amount | currency | persianDigit }} تومان</td>
           <td>{{ item.payable_amount | currency | persianDigit }} تومان</td>
           <td>
@@ -82,24 +100,7 @@
             </span>
             <span v-if="!item.role_discount_amount && !item.discount">-</span>
           </td>
-          <td>
-            <span v-if="item.transaction">
-              <vr-badge
-                :color="
-                  colors.corona_transaction_status[item.transaction.status]
-                "
-                type="dot"
-                >{{ item.transaction.status | enum('corona_transaction_status') }}</vr-badge
-              >
-            </span>
-            <span v-else>-</span>
-          </td>
-          <td>
-            <vr-badge
-              :color="colors.corona_test_status[item.status]"
-              >{{ item.status | enum('corona_test_status') }}</vr-badge
-            >
-          </td>
+
           <td class="text-xs-center" dir="ltr">
             {{
               item.created_at
@@ -157,6 +158,13 @@ export default class CoronaTestPage extends Vue {
       value: 'count',
       width: '10%'
     },
+     {
+      text: 'وضعیت پرداخت',
+      align: 'right',
+      sortable: false,
+      width: '10%'
+    },
+    { text: 'وضعیت', align: 'right', value: 'status', width: '10%' },
     {
       text: 'پیش پرداخت',
       align: 'right',
@@ -170,13 +178,7 @@ export default class CoronaTestPage extends Vue {
       width: '10%'
     },
     { text: 'تخفیف', align: 'right', sortable: false, width: '10%' },
-    {
-      text: 'وضعیت پرداخت',
-      align: 'right',
-      sortable: false,
-      width: '10%'
-    },
-    { text: 'وضعیت', align: 'right', value: 'status', width: '10%' },
+
     {
       text: 'تاریخ ایجاد',
       align: 'right',

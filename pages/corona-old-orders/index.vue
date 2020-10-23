@@ -53,7 +53,7 @@
           </td>
           <td>
             <vr-badge
-              :color="colors.corona_transaction_status[item.status]"
+              :color="colors.corona_test_status[item.status]"
               >{{ item.status | enum('corona_test_status') }}</vr-badge
             >
           </td>

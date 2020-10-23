@@ -48,6 +48,12 @@ export default class CoronaTestDetailPage extends Vue {
         this.testsItems = city.testsItems
       }
     }
+    // let citiesItems = data.map(item => {
+    //   return {
+    //     text: item.name,
+    //     value: item.id
+    //   }
+    // })
     this.loading = false
     this.formData = [
       {

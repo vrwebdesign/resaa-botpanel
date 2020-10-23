@@ -132,6 +132,19 @@ export default class NavigationService {
     } else if (roles.includes('corona_admin')) {
       return [
         {
+<<<<<<< HEAD
+=======
+          icon: 'la-city',
+          title: 'شهرها',
+          to: '/corona-cities'
+        },
+        {
+          icon: 'la-vial',
+          title: 'تست کرونا',
+          to: '/corona-test'
+        },
+        {
+>>>>>>> master
           icon: 'la-image',
           title: 'جواب آزمایش',
           to: '/test-answer'

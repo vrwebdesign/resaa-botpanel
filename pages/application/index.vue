@@ -11,7 +11,7 @@
         :withRecycle="true"
       >
         <template #items="{item}">
-          <td>{{ item.id }}</td>
+          <td>{{ item.id | persianDigit }}</td>
           <td>{{ item.version }}</td>
           <td>{{ item.url }}</td>
           <td>{{ item.type | enum('application_type') }}</td>

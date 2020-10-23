@@ -6,15 +6,20 @@
       <vr-data-grid
         :headers="headers"
         :title="title"
-        :service="$service.corona_city"
+        :service="$service.corona_transactions"
         :filters="filters"
         :withRecycle="true"
         :syncUrl="true"
       >
         <template #items="{item}">
           <td>{{ item.id | persianDigit }}</td>
-          <td>{{ item.name }}</td>
-          <td>{{ item.sort_order | persianDigit }}</td>
+          <td>{{ item.amount | currency | persianDigit }} تومان</td>
+          <td>
+            <vr-badge :color="colors.corona_transaction_status[item.status]">
+              {{ item.status | enum('corona_transaction_status') }}
+            </vr-badge>
+          </td>
+          <td>{{ item.tracking_code }}</td>
           <td class="text-xs-right" dir="ltr">
             {{
               item.created_at
@@ -46,13 +51,15 @@ Component.registerHooks(['meta'])
 })
 export default class CoronaTestPage extends Vue {
   title = {
-    text: 'شهر ها',
-    icon: 'la-city'
+    text: 'تراکنش های تست کرونا',
+    icon: 'la-money-bill'
   }
   headers = [
     { text: 'آیدی', align: 'right', value: 'id', width: '5%' },
-    { text: 'نام شهر', align: 'right', value: 'name', width: '10%' },
-    { text: 'اولویت', align: 'right', value: 'sort_order', width: '10%' },
+    { text: 'قیمت', align: 'right', value: 'amount', width: '10%' },
+
+    { text: 'وضعیت', align: 'right', value: 'status', width: '10%' },
+    { text: 'کد پیگیری', align: 'right', value: 'tracking_code', width: '10%' },
     {
       text: 'تاریخ ایجاد',
       align: 'right',
@@ -66,14 +73,19 @@ export default class CoronaTestPage extends Vue {
       model: 'id:='
     },
     {
-      label: 'نام شهر',
-      model: 'name'
+      label: 'وضعیت',
+      type: 'select',
+      items: [
+        { text: 'همه', value: null },
+        ...this.$enum.corona_transaction_status.toSelect
+      ],
+      model: 'status'
     }
   ]
+  colors = colors
   get meta() {
     return { roles: ['administrator', 'corona_admin'] }
   }
-
 }
 </script>
 

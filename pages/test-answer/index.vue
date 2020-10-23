@@ -9,11 +9,10 @@
         :service="$service.test_answer"
         :filters="filters"
         :withRecycle="true"
-        :hideActionEdit="true"
         :withAdd="false"
       >
         <template #items="{item}">
-          <td>{{ item.id }}</td>
+          <td>{{ item.id | persianDigit }}</td>
           <td>
             <span v-if="item.user">{{ item.user.phone }}</span>
             <span v-else></span>
@@ -22,23 +21,27 @@
             <span v-if="item.doctor">
               <a
                 target="_blank"
-                :href="`https://resaa.net/doctors/${item.doctor.subscriberNumber}`"
-              >{{ item.doctor.firstName }} {{item.doctor.lastName}}</a>
+                :href="
+                  `https://resaa.net/doctors/${item.doctor.subscriberNumber}`
+                "
+                >{{ item.doctor.firstName }} {{ item.doctor.lastName }}</a
+              >
             </span>
             <span v-else>-</span>
           </td>
-          <td>{{item.price | currency | persianDigit}} تومان</td>
+          <td>{{ item.price | currency | persianDigit }} تومان</td>
 
           <td>
             <vr-badge
               :color="colors.testanswer_status[item.status]"
-            >{{ item.status | enum('testanswer_status') }}</vr-badge>
+              >{{ item.status | enum('testanswer_status') }}</vr-badge
+            >
           </td>
           <td class="text-xs-center">
             <span v-if="item.user_satisfaction">
-              <vr-badge
-                :color="item.user_satisfaction==1?'red':'cyan'"
-              >{{ item.user_satisfaction==1?'ناراضی':'راضی' }}</vr-badge>
+              <vr-badge :color="item.user_satisfaction == 1 ? 'red' : 'cyan'">{{
+                item.user_satisfaction == 1 ? 'ناراضی' : 'راضی'
+              }}</vr-badge>
               <!-- <v-icon
                 size="16"
                 color="yellow darken-1"
@@ -49,60 +52,41 @@
             <span v-else>-</span>
           </td>
           <td>
-            <vr-badge
-              type="dot"
-              :color="item.is_confirm?'green':'red'"
-            >{{ item.is_confirm?'تایید شده':'تایید نشده' }}</vr-badge>
+            <vr-badge type="dot" :color="item.is_confirm ? 'green' : 'red'">{{
+              item.is_confirm ? 'تایید شده' : 'تایید نشده'
+            }}</vr-badge>
           </td>
           <td class="text-xs-center" dir="ltr">
-            <span
-              v-if="item.answer_at"
-            >{{ item.answer_at | persianDate('jYYYY-jMM-jDD HH:mm') | persianDigit }}</span>
+            <span v-if="item.answer_at">{{
+              item.answer_at | persianDate('jYYYY-jMM-jDD HH:mm') | persianDigit
+            }}</span>
             <span v-else>-</span>
           </td>
           <td class="text-xs-center">
             <vr-badge
               v-if="item.answer_type"
-              :color="item.answer_type == 'text'?'cyan':'pink'"
-            >{{ item.answer_type }}</vr-badge>
-            <span v-else>-</span>
-          </td>
-          <td
-            class="text-xs-center"
-            dir="ltr"
-          >{{ item.created_at | persianDate('jYYYY-jMM-jDD HH:mm') | persianDigit }}</td>
-          <!-- <td>
-            <span>
-              <v-icon color="green" class="ml-1">la-check</v-icon>
-              <span>پاسخ صحیح {{correct_answers(item) | persianDigit}}</span>
-            </span>
-            <br />
-            <br />
-            <span>
-              <v-icon color="red" class="ml-1">la-remove</v-icon>
-              <span>پاسخ غلط {{incorrect_answers(item) | persianDigit}}</span>
-            </span>
-          </td>
-          <td>
-            <v-btn
-              :color="answer.is_correct ? 'secondary' : 'info'"
-              outline
-              depressed
-              small
-              :ripple="false"
-              class="ma-1"
-              v-for="(answer, i) in item.answers"
-              :key="i"
+              :color="item.answer_type == 'text' ? 'cyan' : 'pink'"
+              >{{ item.answer_type }}</vr-badge
             >
-              <v-icon size="17" class="ml-2" v-if="answer.is_correct">la-check-square</v-icon>
-              <span>{{ answer.text }}</span>
-            </v-btn>
-          </td>-->
-
-          <!-- <td>
-            <span v-if="item.send_time">{{ item.send_time | persianDate | persianDigit }}</span>
             <span v-else>-</span>
-          </td>-->
+          </td>
+          <td class="text-xs-center" dir="ltr">
+            {{
+              item.created_at
+                | persianDate('jYYYY-jMM-jDD HH:mm')
+                | persianDigit
+            }}
+          </td>
+        </template>
+        <template #actions_right="{item}">
+          <v-tooltip top v-if="item.description">
+            <template v-slot:activator="{ on }">
+              <v-icon v-on="on">{{
+                item.description ? 'la-exclamation' : 'a'
+              }}</v-icon>
+            </template>
+            <span>{{ item.description }}</span>
+          </v-tooltip>
         </template>
       </vr-data-grid>
     </v-card>

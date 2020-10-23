@@ -34,10 +34,6 @@
               >ذخیره</v-btn
             >
           </div>
-          <v-btn flat color="accent" @click="goBack">
-            <span>بازگشت</span>
-            <v-icon class="pr-2"> la-arrow-left </v-icon>
-          </v-btn>
         </div>
       </div>
       <div ref="loaderWrapper" class="content">
@@ -46,28 +42,40 @@
           <v-flex lg8 xs12>
             <section class="form-section">
               <div class="form-group">
-                <label class="required">نام شهر</label>
+                <v-checkbox
+                  label="فعال / غیرفعال"
+                  v-model="item.is_active"
+                ></v-checkbox>
+              </div>
+              <div class="form-group">
+                <label class="required">زمان ارسال بعد از ثبت سفارش</label>
                 <v-text-field
                   outline
-                  v-validate="{ required: true }"
-                  :error-messages="errors.collect('name')"
-                  data-vv-as="نام شهر"
-                  name="name"
-                  v-model="item.name"
-                  placeholder="نام شهر را وارد نمایید"
+                  v-validate="{ required: true, min_value: 1 }"
+                  :error-messages="errors.collect('minute')"
+                  data-vv-as="تعداد دقیقه"
+                  name="minute"
+                  v-model="item.minute"
+                  suffix="دقیقه"
+                  placeholder="زمان سپری شده بعد از ثبت سفارش"
+                  hint="زمان سپری شده بعد از ثبت سفارش به دقیقه"
                 ></v-text-field>
               </div>
               <div class="form-group">
-                <label >اولویت</label>
-                <v-text-field
+                <label class="required">کد تخفیف</label>
+                <v-select
+                  :items="discounts"
+                  item-text="name"
+                  item-value="id"
                   outline
-                  v-validate="'number'"
-                  :error-messages="errors.collect('sort_order')"
-                  data-vv-as="اولویت"
-                  name="sort_order"
-                  v-model="item.sort_order"
-                  placeholder="اولویت نمایش را مشخص کنید"
-                ></v-text-field>
+                  v-validate="'required'"
+                  :error-messages="errors.collect('discount')"
+                  data-vv-as="کد تخفیف"
+                  name="discount"
+                  single-line
+                  v-model="item.discount_id"
+                  placeholder="کد تخفیف را مشخص کنید"
+                ></v-select>
               </div>
             </section>
           </v-flex>
@@ -89,16 +97,18 @@ Component.registerHooks(['meta'])
 export default class CoronaTestDetailPage extends Vue {
   date = null
   loading = true
-  title = 'افزودن شهر جدید'
+  title = 'تنظیمات ارسال پیامک ریتارگتینگ'
   item: any = {}
+  discounts: any = []
   get meta() {
     return { roles: ['administrator', 'corona_admin'] }
   }
   async mounted() {
-    if (this.$route.params.id !== 'create') {
-      this.item = await this.$service.corona_city.$get(this.$route.params.id)
-      this.title = `ویرایش شهر ${this.item.name}`
-    }
+    this.item = await this.$service.corona_retarget.getSetting()
+    let { data } = await this.$service.corona_discounts.$query({
+      perPage: 1000
+    })
+    this.discounts = data
     this.loading = false
   }
 
@@ -107,26 +117,16 @@ export default class CoronaTestDetailPage extends Vue {
     if (!valid) {
       return
     }
+    this.loading = true
     try {
-      if (this.$route.params.id == 'create') {
-        await this.$service.corona_city.$save(this.item)
-      } else {
-        await this.$service.corona_city.$update(
-          this.$route.params.id,
-          this.item
-        )
-      }
+      await this.$service.corona_retarget.changeSetting(this.item)
       await this.$toast
         .success()
         .timeout(400)
         .showSimple('با موفقیت ذخیره شد')
-      this.goBack()
     } catch (error) {
       await this.$toast.error().showSimple('خطایی رخ داده است')
     }
-  }
-  goBack() {
-    return this.$router.push('/corona-cities')
   }
 }
 </script>

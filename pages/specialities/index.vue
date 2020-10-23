@@ -12,7 +12,7 @@
         :withAdd="false"
       >
         <template #items="{item}">
-          <td>{{ item.id }}</td>
+          <td>{{ item.id | persianDigit }}</td>
           <td>{{ item.title }}</td>
           <td>{{ item.description }}</td>
         </template>

@@ -46,7 +46,7 @@
           <td>{{ item.amount | currency | persianDigit }} تومان</td>
           <td>
             <vr-badge
-              :color="colors.corona_test_payment_status[item.payment_status]"
+              :color="colors.corona_transaction_status[item.payment_status]"
               type="dot"
               >{{ item.payment_status | enum('corona_transaction_status') }}</vr-badge
             >

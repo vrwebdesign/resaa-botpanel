@@ -26,14 +26,14 @@
           <td>{{item.amount | currency | persianDigit}} تومان</td>
           <td>
             <vr-badge
-              :color="colors.corona_test_payment_status[item.payment_status]"
+              :color="colors.corona_transaction_status[item.payment_status]"
               type="dot"
-            >{{ item.payment_status | enum('corona_test_payment_status') }}</vr-badge>
+            >{{ item.payment_status | enum('corona_transaction_status') }}</vr-badge>
           </td>
           <td>
             <vr-badge
-              :color="colors.corona_transaction_status[item.status]"
-            >{{ item.status | enum('corona_transaction_status') }}</vr-badge>
+              :color="colors.corona_test_status[item.status]"
+            >{{ item.status | enum('corona_test_status') }}</vr-badge>
           </td>
           <td class="text-xs-center" dir="ltr">
             <vr-badge :color="calc_color(item)">{{ calc_hour(item) }}</vr-badge>
